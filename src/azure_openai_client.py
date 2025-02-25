@@ -29,7 +29,7 @@ class AzureOpenAIClient:
         :return:
           review_content: str, the review response
         """
-        gpt_result = self.azure_client.chat.completions.create(
+        gpt_result = self.azure_openai_client.chat.completions.create(
             model=self.model,
             messages=messages
         )
