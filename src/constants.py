@@ -1,3 +1,5 @@
+OPENAI_API_VERSION = "2025-01-01-preview"
+
 # Environment Variable's Keys
 GITHUB_AUTH_TOKEN = "GITHUB_AUTH_TOKEN"
 REPO = "REPO"

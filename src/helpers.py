@@ -30,10 +30,6 @@ class EnvironmentVariableHelper:
         return EnvironmentVariableHelper.get_env_var(AZURE_OPENAI_MODEL, None)
     
     @staticmethod
-    def get_azure_openai_model_api_version() -> str:
-        return EnvironmentVariableHelper.get_env_var(AZURE_OPENAI_MODEL_API_VERSION, None)
-    
-    @staticmethod
     def get_pr_summary() -> bool:
         return EnvironmentVariableHelper.get_env_var(PR_SUMMARY, True)
     
