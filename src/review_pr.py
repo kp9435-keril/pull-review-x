@@ -33,6 +33,7 @@ class ReviewPR:
         format_gpt_message(messages, [PR_SUMMARY_COMMIT_MESSAGES_INTRO + "\n".join(commit_messages)], role=MODEL_USER_ROLE)
         format_gpt_message(messages, [PR_SUMMARY_PATCHES_INTRO + "\n".join(pr_content_patches)], role=MODEL_USER_ROLE)
         logger.warning(messages)
-        # gpt_resp = self.azure_openai_client.request_gpt(messages)
-        # if not gpt_resp:
-        #     return
+        gpt_resp = self.azure_openai_client.request_gpt(messages)
+        if not gpt_resp:
+            return
+        logger.warning(gpt_resp)
