@@ -1,4 +1,5 @@
 import os
+from typing import Any
 
 from src.constants import *
 
@@ -40,5 +41,5 @@ class EnvironmentVariableHelper:
         return EnvironmentVariableHelper.get_env_var(PR_SUGGEST_CHANGES, True)
 
     @staticmethod
-    def get_env_var(name: str, fallback: any) -> any:
+    def get_env_var(name: str, fallback: Any) -> Any:
         return os.environ.get(name, fallback)
