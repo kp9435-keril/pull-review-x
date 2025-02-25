@@ -1,6 +1,8 @@
+from src.review_pr import ReviewPR
+
+
 def main():
-    # TODO: Implement the main function
-    pass
+    ReviewPR()
 
 if __name__ == "__main__":
     main()
