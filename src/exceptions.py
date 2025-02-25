@@ -9,3 +9,6 @@ class InvalidOpenAIConfigException(Exception):
 
 class MissingConfigException(Exception):
     pass
+
+class GitHubAPIException(Exception):
+    pass
