@@ -11,4 +11,4 @@ class GitHubClient:
         self.repositoryLink = os.environ.get("REPO", None)
         if not self.repositoryLink:
             raise RepoMissingException("Repository is required for REST APIs")
-        self.owner, self.repo = self.repository.split("/")
+        self.owner, self.repo = self.repositoryLink.split("/")
