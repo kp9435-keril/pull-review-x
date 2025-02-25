@@ -14,6 +14,12 @@ inputs:
   AZURE_OPENAI_ENDPOINT:
     description: "Azure OpenAI Endpoint"
     required: true
+  AZURE_OPENAI_MODEL:
+    description: "Azure OpenAI Model"
+    required: true
+  AZURE_OPENAI_MODEL_API_VERSION:
+    description: "Azure OpenAI Model API Version"
+    required: true
   PR_SUMMARY:
     description: "Whether draw conclusion based on PR Diff"
     required: false
@@ -60,6 +66,8 @@ runs:
           GITHUB_AUTH_TOKEN: ${{ inputs.GITHUB_AUTH_TOKEN }}
           AZURE_OPENAI_APIKEY: ${{ inputs.AZURE_OPENAI_APIKEY }}
           AZURE_OPENAI_ENDPOINT: ${{ inputs.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_MODEL : ${{ inputs.AZURE_OPENAI_MODEL }}
+          AZURE_OPENAI_MODEL_API_VERSION: ${{ inputs.AZURE_OPENAI_MODEL_API_VERSION }}
           PR_SUMMARY: ${{ inputs.PR_SUMMARY }}
           PR_SUGGEST_CHANGES: ${{ inputs.PR_SUGGEST_CHANGES }}
         run: |
