@@ -6,3 +6,6 @@ class RepoMissingException(Exception):
 
 class InvalidOpenAIConfigException(Exception):
     pass
+
+class MissingConfigException(Exception):
+    pass
