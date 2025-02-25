@@ -19,8 +19,6 @@ class ReviewPR:
         get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
         if get_pr_summary:
             self.get_pr_summary(pr_diffs=pr_diffs)
-
-        EnvironmentVariableHelper.get_pr_suggest_changes()
     
     def get_pr_summary(self, pr_diffs: dict[str, Any]) -> None:
         if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
@@ -45,4 +43,3 @@ class ReviewPR:
             "position": 0,
         }
         logger.warning("summary review_item: {0}".format(json.dumps(review_item)))
-        self.github_client.comment_pr([review_item])
