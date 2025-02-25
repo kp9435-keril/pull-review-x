@@ -26,15 +26,15 @@ class ReviewPR:
         if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
             logger.warning("No pr diff files, pr summary ignored")
             return
-        logger.info(pr_diffs)
+        logger.warning(pr_diffs)
         commit_id = pr_diffs["commits"][-1]["sha"]
-        logger.info(commit_id)
+        logger.warning(commit_id)
         pr_contents = [diff_item["patch"] for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
-        logger.info(pr_contents)
+        logger.warning(pr_contents)
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUMMARY_PROMPT], role=MODEL_USER_ROLE)
         format_gpt_message(messages, ["\n".join(pr_contents)], role=MODEL_USER_ROLE)
-        logger.info(messages)
+        logger.warning(messages)
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
@@ -45,4 +45,4 @@ class ReviewPR:
             "position": 0,
         }
         logger.warning("summary review_item: {0}".format(json.dumps(review_item)))
-        self.git_manager.comment_pr([review_item])
+        self.github_client.comment_pr([review_item])
