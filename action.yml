@@ -83,4 +83,4 @@ runs:
           source env/bin/activate
           echo pr number: "$PR_NUMBER"
           echo pr repo: "$PR_REPO"
-          python -m pull_review_x
+          python -m src
