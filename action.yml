@@ -1,0 +1,86 @@
+name: 'PullReviewX'
+description: 'A smart Github Action that utilizes Azure OpenAI API to review pull requests, identify potential issues, and provide actionable feedback'
+branding:
+  icon: 'compass'
+  color: 'orange'
+inputs:
+  AUTH_TOKEN:
+    description: 'Token for using GitHub REST API'
+    default: ${{ github.token }}
+    required: false
+  PR_EVENT:
+    description: 'Pull PR_EVENT'
+    required: false
+  APIKEY:
+    description: 'APIKEY'
+    required: true
+  ENDPOINT:
+    description: "ENDPOINT"
+    required: true
+  code_suggest:
+    description: "Whether review pr code change by patch"
+    required: false
+  pr_summary:
+    description: "Whether draw a conclusion from whole pr diff"
+    required: false
+  pr_reset:
+    description: "Whether clean last round pr reviews"
+    required: false
+  review_filter:
+    description: "Whether filter review result by evaluation"
+    required: false
+runs:
+  using: "composite"
+  steps:
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5.4.0
+        with:
+           python-version: "3.13"
+      - name: Show Working Directory
+        shell: bash
+        run: |
+          pwd
+          ls
+      - name: Set Up Env
+        shell: bash
+        env:
+           GITHUB_ACTION_PATH: ${{ github.action_path }}
+        run: | 
+          set -x
+          pwd
+          echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+          cd "$GITHUB_ACTION_PATH"
+          python -m pip install --upgrade pip
+          python -m venv env
+          chmod +x env/bin/activate
+          source ./env/bin/activate
+          pwd
+          ls
+          pip list -v
+          pip install -r requirements.txt
+          pip list
+      - name: Review Pull Request
+        shell: bash
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_REPO: ${{ github.repository }}
+          GITHUB_ACTION_PATH: ${{ github.action_path }}
+          REPO: ${{ github.repository }}
+          EVENT: ${{ toJson(github.event) }}
+          APIKEY: ${{ inputs.APIKEY }}
+          ENDPOINT: ${{ inputs.ENDPOINT }}
+          TOKEN: ${{ inputs.AUTH_TOKEN }}
+          code_suggest: ${{ inputs.code_suggest }}
+          pr_summary: ${{ inputs.pr_summary }}
+          pr_reset: ${{ inputs.pr_reset }}
+        run: |
+          set -x
+          pwd
+          ls -a
+          cd "$GITHUB_ACTION_PATH"
+          pwd
+          ls
+          source env/bin/activate
+          echo pr number: "$PR_NUMBER"
+          echo pr repo: "$PR_REPO"
+          python -m pull_review_x
