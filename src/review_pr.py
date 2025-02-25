@@ -10,7 +10,7 @@ class ReviewPR:
         self.azure_openai_client = AzureOpenAIClient()
     
     def review_pr(self):
-        pr_diffs = self.git_manager.get_pr_diff_files()
+        pr_diffs = self.github_client.get_pr_diff_files()
 
         get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
         if get_pr_summary:
