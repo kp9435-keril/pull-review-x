@@ -21,26 +21,31 @@ MODEL_ASSIST_ROLE = "assistant"
 
 # Prompt messages
 
-PR_SUMMARY_PROMPT = """
-Below is the whole changed content from a github pull requests, please draw a summary of this pr with no more than 100 words. Ignore the history notes updates. 
-And please use the following format:
-PR Summary:
-1. balabala
-2. balabala
-...
+PR_SUMMARY_SYSTEM_PROMPT = """
+You are a highly intelligent AI assistant designed to generate comprehensive, structured, and insightful pull request (PR) review summaries.
+Your primary objective is to analyze PR Description, PR Title, PR Commits, and PR Changes to generate a concise and informative summary.
+
+Please adhere to the following guidelines:
+1. Be Objective & Informative.
+2. Maintain a Constructive & Professional Tone.
+3. Ensure Markdown Formatting.
+4. Follow a proper summary structure.
+
+The summary should be point-wise and cover the following aspects:
+1. PR Description Summary.
+2. PR Title Analysis.
+3. PR Commits Overview.
+4. PR Changes Analysis.
+
+Feel free to use professional emojis to enhance the summary.
 """
 
-PR_TAG = """
-:mag_right:
+PR_SUMMARY_COMMIT_MESSAGES_INTRO = """
+Below are the list of commit messages in the PR for your reference:
+
 """
 
-PR_EVALUATE_PROMPT = """
-Below is a list of evaluation score for existing git pr review result and its corresponding score, delimitd by @@@.
-Nothing to return.@@@-10
-The URL is incomplete. It should be https://learn.microsoft.com/en-us/cli/azure/monitor/data-collection/endpoint/association?view=azure-cli-latest#az-monitor-data-collection-endpoint-association-list.@@@5
-The placeholder <resource/monitor/endpoint_id> should be enclosed in backticks for clarity and compliance with markdown formatting.@@@3
-`az aks connection create` should be backticked in the history notes for consistency with the previous usage.@@@-1
-Review-Ignored@@@-10
-Can you evaluate the below sentence according to the standard set up in the above evaluation example data list, just give a score please:
+PR_SUMMARY_PATCHES_INTRO = """
+Below are the list of file changes in the PR for your reference:
 
 """

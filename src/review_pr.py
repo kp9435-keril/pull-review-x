@@ -28,10 +28,11 @@ class ReviewPR:
         commit_messages = [commit["commit"]["message"] for commit in pr_diffs["commits"]]
         logger.warning(pr_content_patches)
         logger.warning(commit_messages)
-        # messages: list[dict[str, str]] = []
-        # format_gpt_message(messages, [PR_SUMMARY_PROMPT], role=MODEL_USER_ROLE)
-        # format_gpt_message(messages, ["\n".join(pr_content_patches)], role=MODEL_USER_ROLE)
-        # logger.warning(messages)
+        messages: list[dict[str, str]] = []
+        format_gpt_message(messages, [PR_SUMMARY_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
+        format_gpt_message(messages, [PR_SUMMARY_COMMIT_MESSAGES_INTRO + "\n".join(commit_messages)], role=MODEL_USER_ROLE)
+        format_gpt_message(messages, [PR_SUMMARY_PATCHES_INTRO + "\n".join(pr_content_patches)], role=MODEL_USER_ROLE)
+        logger.warning(messages)
         # gpt_resp = self.azure_openai_client.request_gpt(messages)
         # if not gpt_resp:
         #     return
