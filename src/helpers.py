@@ -13,6 +13,10 @@ class EnvironmentVariableHelper:
         return EnvironmentVariableHelper.get_env_var(REPO, None)
     
     @staticmethod
+    def get_event() -> str:
+        return EnvironmentVariableHelper.get_env_var(EVENT, None)
+    
+    @staticmethod
     def get_azure_openai_apikey() -> str:
         return EnvironmentVariableHelper.get_env_var(AZURE_OPENAI_APIKEY, None)
 
