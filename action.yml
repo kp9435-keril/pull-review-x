@@ -1,33 +1,24 @@
-name: 'PullReviewX'
-description: 'A smart Github Action that utilizes Azure OpenAI API to review pull requests, identify potential issues, and provide actionable feedback'
+name: "PullReviewX"
+description: "A smart Github Action that utilizes Azure OpenAI API to review pull requests, identify potential issues, and provide actionable feedback"
 branding:
-  icon: 'compass'
-  color: 'orange'
+  icon: "compass"
+  color: "orange"
 inputs:
-  AUTH_TOKEN:
-    description: 'Token for using GitHub REST API'
+  GITHUB_AUTH_TOKEN:
+    description: "Token for using GitHub REST API"
     default: ${{ github.token }}
     required: false
-  PR_EVENT:
-    description: 'Pull PR_EVENT'
-    required: false
-  APIKEY:
-    description: 'APIKEY'
+  AZURE_OPENAI_APIKEY:
+    description: "Azure OpenAI API Key"
     required: true
-  ENDPOINT:
-    description: "ENDPOINT"
+  AZURE_OPENAI_ENDPOINT:
+    description: "Azure OpenAI Endpoint"
     required: true
-  code_suggest:
-    description: "Whether review pr code change by patch"
+  PR_SUMMARY:
+    description: "Whether draw conclusion based on PR Diff"
     required: false
-  pr_summary:
-    description: "Whether draw a conclusion from whole pr diff"
-    required: false
-  pr_reset:
-    description: "Whether clean last round pr reviews"
-    required: false
-  review_filter:
-    description: "Whether filter review result by evaluation"
+  PR_SUGGEST_CHANGES:
+    description: "Whether review PR code change by patch"
     required: false
 runs:
   using: "composite"
@@ -62,17 +53,15 @@ runs:
       - name: Review Pull Request
         shell: bash
         env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-          PR_REPO: ${{ github.repository }}
-          GITHUB_ACTION_PATH: ${{ github.action_path }}
           REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_ACTION_PATH: ${{ github.action_path }}
           EVENT: ${{ toJson(github.event) }}
-          APIKEY: ${{ inputs.APIKEY }}
-          ENDPOINT: ${{ inputs.ENDPOINT }}
-          TOKEN: ${{ inputs.AUTH_TOKEN }}
-          code_suggest: ${{ inputs.code_suggest }}
-          pr_summary: ${{ inputs.pr_summary }}
-          pr_reset: ${{ inputs.pr_reset }}
+          GITHUB_AUTH_TOKEN: ${{ inputs.GITHUB_AUTH_TOKEN }}
+          AZURE_OPENAI_APIKEY: ${{ inputs.AZURE_OPENAI_APIKEY }}
+          AZURE_OPENAI_ENDPOINT: ${{ inputs.AZURE_OPENAI_ENDPOINT }}
+          PR_SUMMARY: ${{ inputs.PR_SUMMARY }}
+          PR_SUGGEST_CHANGES: ${{ inputs.PR_SUGGEST_CHANGES }}
         run: |
           set -x
           pwd
@@ -82,5 +71,5 @@ runs:
           ls
           source env/bin/activate
           echo pr number: "$PR_NUMBER"
-          echo pr repo: "$PR_REPO"
+          echo pr repo: "$REPO"
           python -m src
