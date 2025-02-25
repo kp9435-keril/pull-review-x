@@ -16,8 +16,8 @@ class AzureOpenAIClient:
         self.model_api_version = EnvironmentVariableHelper.get_azure_openai_model_api_version()
         if not self.model or not self.model_api_version or not self.endpoint or not self.api_key:
             raise InvalidOpenAIConfigException("Azure OpenAI model, model API version, endpoint and API key are required")
-        logger.warning("Azure OpenAI model: {0}, model API version: {1}, endpoint: {2}".format(self.model, self.model_api_version, self.endpoint))
         self.azure_openai_client = AzureOpenAI(
+            api_version=self.model_api_version,
             api_key=self.api_key,
             azure_endpoint=self.endpoint
         )
