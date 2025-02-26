@@ -32,18 +32,14 @@ class ReviewPR:
         pr_description = pr_info["body"] if "body" in pr_info else ""
         pr_content_patches = [diff_item["patch"] for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
         commit_messages = [commit["commit"]["message"] for commit in pr_diffs["commits"]]
-        logger.warning(pr_title)
-        logger.warning(pr_description)
-        logger.warning(pr_content_patches)
-        logger.warning(commit_messages)
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUMMARY_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
         format_gpt_message(messages, [PR_SUMMARY_TITLE_INTRO + pr_title], role=MODEL_USER_ROLE)
         format_gpt_message(messages, [PR_SUMMARY_DESCRIPTION_INTRO + pr_description], role=MODEL_USER_ROLE)
         format_gpt_message(messages, [PR_SUMMARY_COMMIT_MESSAGES_INTRO + "\n".join(commit_messages)], role=MODEL_USER_ROLE)
         format_gpt_message(messages, [PR_SUMMARY_PATCHES_INTRO + "\n".join(pr_content_patches)], role=MODEL_USER_ROLE)
-        logger.warning(messages)
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
-        logger.warning(gpt_resp)
+        self.azure_openai_client.post_comment(gpt_resp)
+        return
