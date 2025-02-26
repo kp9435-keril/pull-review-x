@@ -28,12 +28,9 @@ class ReviewPR:
         if not pr_diffs or "commits" not in pr_diffs or not pr_diffs["commits"]:
             logger.warning("No pr commits, pr summary ignored")
             return
-        logger.warning(str(pr_diffs))
         pr_title = pr_info["title"] if "title" in pr_info else ""
         pr_description = pr_info["body"] if "body" in pr_info else ""
         pr_content_patches = [diff_item["patch"] for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
-        logger.warning(str(pr_diffs["files"]))
-        logger.warning(self.github_client.get_file_contents(pr_diffs["files"][0]["contents_url"]))
         commit_messages = [commit["commit"]["message"] for commit in pr_diffs["commits"]]
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUMMARY_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
