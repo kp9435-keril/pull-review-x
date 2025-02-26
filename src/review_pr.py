@@ -17,9 +17,13 @@ class ReviewPR:
         pr_diffs = self.github_client.get_pr_diff_files()
         pr_info = self.github_client.get_pr_info()
 
-        get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
-        if get_pr_summary:
-            self.get_pr_summary(pr_diffs=pr_diffs, pr_info=pr_info)
+        # get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
+        # if get_pr_summary:
+        #     self.get_pr_summary(pr_diffs=pr_diffs, pr_info=pr_info)
+        
+        get_pr_suggest_changes = EnvironmentVariableHelper.get_pr_suggest_changes()
+        if get_pr_suggest_changes:
+            self.get_pr_suggest_changes(pr_diffs=pr_diffs, pr_info=pr_info)
     
     def get_pr_summary(self, pr_diffs: dict[str, Any], pr_info: dict[str, Any]) -> None:
         if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
@@ -43,3 +47,12 @@ class ReviewPR:
             return
         self.github_client.post_pr_comment(gpt_resp)
         return
+    
+    def get_pr_suggest_changes(self, pr_diffs: dict[str, Any], pr_info: dict[str, Any]) -> None:
+        if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
+            logger.warning("No pr diff files, pr suggest changes ignored")
+            return
+        
+        pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
+
+        logger.warning("pr_diff_contents: %s", pr_diff_contents)
