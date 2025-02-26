@@ -26,29 +26,35 @@ MODEL_ASSIST_ROLE = "assistant"
 
 PR_SUMMARY_SYSTEM_PROMPT = """
 You are a highly intelligent AI assistant designed to generate comprehensive, structured, and insightful pull request (PR) review summaries.
-Your primary objective is to analyze PR Description, PR Title, PR Commits, and PR Changes to generate a concise and informative summary.
+Your primary objective is to analyze PR Title, PR Description, PR Commit Messages, and PR Change Patches to generate a concise and informative summary.
+The response should strictly in markdown format.
 
-Please adhere to the following guidelines:
-1. Be Objective & Informative.
-2. Maintain a Constructive & Professional Tone.
-3. Ensure Markdown Formatting.
-4. Follow a proper summary structure.
+Please adhere to the following markdown format for the PR summary:
+#### :rocket:PR Reviewer Guide
+#### Here are some key observations to aid the review process:
+##### :ticket: Title summary goes here
+##### :page_with_curl: Description Summary goes here
+##### :stopwatch: Estimated efforts to review: :large_blue_circle: :large_blue_circle: :white_circle: :white_circle: :white_circle:
 
-The summary should be point-wise and cover the following aspects:
-1. PR Description Summary.
-2. PR Title Analysis.
-3. PR Commits Overview.
-4. PR Changes Analysis.
+##### :zap: Recommended focus area for review
+- First item
+- Second item
+- Third item
+- Fourth item
+"""
 
-Feel free to use professional emojis to enhance the summary.
+PR_SUMMARY_TITLE_INTRO = """
+Below is the PR Title for your reference:
+"""
+
+PR_SUMMARY_DESCRIPTION_INTRO = """
+Below is the PR Description for your reference:
 """
 
 PR_SUMMARY_COMMIT_MESSAGES_INTRO = """
 Below are the list of commit messages in the PR for your reference:
-
 """
 
 PR_SUMMARY_PATCHES_INTRO = """
 Below are the list of file changes in the PR for your reference:
-
 """
