@@ -1,9 +1,11 @@
 import json
+import logging
 import requests
 
 from src.constants import *
 from src.exceptions import *
 from src.helpers import EnvironmentVariableHelper
+logger = logging.getLogger(__name__)
 
 
 class GitHubClient:
@@ -87,3 +89,17 @@ class GitHubClient:
             return response.json()
         except Exception as err:
             raise GitHubAPIException(f"Error in post_pr_comment: {err}")
+        
+    def get_file_contents(self, raw_url: str):
+        """
+        get raw_url
+        :param raw_url:
+        :return:
+        """
+        try:
+            response = requests.get(raw_url)
+            response.raise_for_status()
+            logger.warning(response.text)
+            return response.text
+        except Exception as err:
+            raise GitHubAPIException(f"Error in get_file_contents: {err}")
