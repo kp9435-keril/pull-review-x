@@ -79,7 +79,8 @@ Let's understand the format of every suggestion:
 1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
 2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
 3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
-4. "New suggestions goes here - strictly in markdown format" - It should contain suggestion alongwith new code patch. Strictly in markdown format.
+4. "Suggestion title goes here" - It should contain the title of the suggestion.
+5. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It can also contain the code snippets if required.
 
 Please adhere strictly to the following json format for the PR suggestions:
 {
@@ -88,7 +89,8 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here - strictly in markdown format",
+            "suggestion_title": "Suggestion title goes here",
+            "suggestion_description": "Suggestion description goes here"
         }
     ],
     "general": [
@@ -96,7 +98,8 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here - strictly in markdown format",
+            "suggestion_title": "Suggestion title goes here",
+            "suggestion_description": "Suggestion description goes here"
         }
     ],
     "error_handling": [
@@ -104,7 +107,8 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here - strictly in markdown format",
+            "suggestion_title": "Suggestion title goes here",
+            "suggestion_description": "Suggestion description goes here"
         }
     ],
     "best_practice": [
@@ -112,7 +116,8 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here - strictly in markdown format",
+            "suggestion_title": "Suggestion title goes here",
+            "suggestion_description": "Suggestion description goes here"
         }
     ]
 }
