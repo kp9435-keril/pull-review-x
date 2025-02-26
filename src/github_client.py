@@ -66,7 +66,7 @@ class GitHubClient:
         
     def post_pr_comment(self, comment: str):
         """
-        post https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/comments
+        post https://api.github.com/repos/{owner}/{repo}/issues/{pr_number}/comments
         :param comment:
         :return:
         """
@@ -77,12 +77,12 @@ class GitHubClient:
             "Accept": "application/vnd.github.v3+json",
             "authorization": f"Bearer {self.token}",
         }
-        pr_comments_url = PR_COMMENTS_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+        pr_comment_url = PR_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
         data = {
             "body": comment
         }
         try:
-            response = requests.post(pr_comments_url, headers=headers, data=json.dumps(data))
+            response = requests.post(pr_comment_url, headers=headers, data=json.dumps(data))
             response.raise_for_status()
             return response.json()
         except Exception as err:
