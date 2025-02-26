@@ -75,6 +75,12 @@ File Content:
 You need to analyze the provided inputs and suggest the changes required in four categories - "Possible Issues/Regressions", "General", "Error Handling", and "Best Practice".
 Please note that it is not mandatory to provide suggestion(s) for all categories. You can provide suggestion(s) for the categories you think are relevant. The suggestion(s) to each category can be one or more as required.
 
+Let's understand the format of every suggestion:
+1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
+2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
+3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
+4. "New suggestions goes here - strictly in markdown format" - It should contain suggestion alongwith new code patch. Strictly in markdown format.
+
 Please adhere strictly to the following json format for the PR suggestions:
 {
     "possible_issues": [
@@ -82,7 +88,7 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here",
+            "new suggestions": "New suggestions goes here - strictly in markdown format",
         }
     ],
     "general": [
@@ -90,7 +96,7 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here",
+            "new suggestions": "New suggestions goes here - strictly in markdown format",
         }
     ],
     "error_handling": [
@@ -98,7 +104,7 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here",
+            "new suggestions": "New suggestions goes here - strictly in markdown format",
         }
     ],
     "best_practice": [
@@ -106,16 +112,10 @@ Please adhere strictly to the following json format for the PR suggestions:
             "filename": "Filename goes here",
             "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
-            "new suggestions": "New suggestions goes here",
+            "new suggestions": "New suggestions goes here - strictly in markdown format",
         }
     ]
 }
-
-Let's understand the format of every suggestion:
-1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
-2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
-3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
-4. "New suggestions goes here" - The new suggestions to be provided for the respective category, this should be filled with appropriate suggestions. It may or may not contain new code patches. It should be strictly in markdown format.
 """
 
 FILE_CHANGES_TEMPLATE = """
