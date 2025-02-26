@@ -14,7 +14,7 @@ PR_SUGGEST_CHANGES = "PR_SUGGEST_CHANGES"
 
 # GitHub API URL
 PR_INFO_URL_TEMPLATE = "https://api.github.com/repos/{0}/{1}/pulls/{2}"
-PR_COMMENTS_URL_TEMPLATE = "https://api.github.com/repos/{0}/{1}/pulls/{2}/comments"
+PR_COMMENT_URL_TEMPLATE = "https://api.github.com/repos/{0}/{1}/issues/{2}/comments"
 PR_DIFF_URL_TEMPLATE = "https://api.github.com/repos/{0}/{1}/compare/{2}...{3}"
 
 # Model Roles
