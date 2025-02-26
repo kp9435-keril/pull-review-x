@@ -98,6 +98,7 @@ class GitHubClient:
         """
         try:
             headers = {
+                "Accept": "application/vnd.github.raw+json",
                 "authorization": f"Bearer {self.token}",
             }
             response = requests.get(contents_url, headers=headers)
