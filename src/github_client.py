@@ -15,6 +15,28 @@ class GitHubClient:
         if not self.repositoryLink:
             raise RepoMissingException("Repository is required for REST APIs")
         self.owner, self.repo = self.repositoryLink.split("/")
+
+    def get_pr_info(self):
+        """
+        get https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}
+        :return:
+        """
+        pr_number = EnvironmentVariableHelper.get_pr_number()
+        if not pr_number:
+            raise MissingConfigException("PR number is required")        
+        headers = {
+            "Accept": "application/vnd.github+json",
+            "authorization": f"Bearer {self.token}",
+        }
+
+        pr_comments_url = PR_INFO_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+
+        try:
+            response = requests.get(pr_comments_url, headers=headers)
+            response.raise_for_status()
+            return response.json()
+        except Exception as err:
+            raise GitHubAPIException(f"Error in get_pr_info: {err}")
     
     def get_pr_diff_files(self):
         """
