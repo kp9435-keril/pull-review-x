@@ -61,6 +61,7 @@ class ReviewPR:
             diff_patch = diff_item["patch"]
             file_content = self.github_client.get_file_contents(diff_item["contents_url"])
             format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_sha, diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
+        logger.warning("messages: %s", messages)
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
