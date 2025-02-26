@@ -51,8 +51,18 @@ class ReviewPR:
     def get_pr_suggest_changes(self, pr_diffs: dict[str, Any], pr_info: dict[str, Any]) -> None:
         if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
             logger.warning("No pr diff files, pr suggest changes ignored")
-            return
-        
+            return 
         pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
-
+        messages: list[dict[str, str]] = []
+        format_gpt_message(messages, [PR_SUGGEST_CHANGES_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
+        for diff_item in pr_diff_contents:
+            diff_sha = diff_item["sha"]
+            diff_filename = diff_item["filename"]
+            diff_patch = diff_item["patch"]
+            file_content = self.github_client.get_file_contents(diff_item["contents_url"])
+            format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_sha, diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
+        gpt_resp = self.azure_openai_client.request_gpt(messages)
+        if not gpt_resp:
+            return
+        logger.warning("gpt_resp: %s", gpt_resp)
         logger.warning("pr_diff_contents: %s", pr_diff_contents)
