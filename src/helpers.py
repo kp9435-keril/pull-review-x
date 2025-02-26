@@ -6,16 +6,24 @@ from src.constants import *
 
 class EnvironmentVariableHelper:
     @staticmethod
-    def get_github_auth_token() -> str:
-        return EnvironmentVariableHelper.get_env_var(GITHUB_AUTH_TOKEN, None)
-    
-    @staticmethod
     def get_repo() -> str:
         return EnvironmentVariableHelper.get_env_var(REPO, None)
     
     @staticmethod
+    def get_pr_number() -> str:
+        return EnvironmentVariableHelper.get_env_var(PR_NUMBER, None)
+    
+    @staticmethod
+    def get_github_action_path() -> str:
+        return EnvironmentVariableHelper.get_env_var(GITHUB_ACTION_PATH, None)
+
+    @staticmethod
     def get_event() -> str:
         return EnvironmentVariableHelper.get_env_var(EVENT, None)
+    
+    @staticmethod
+    def get_github_auth_token() -> str:
+        return EnvironmentVariableHelper.get_env_var(GITHUB_AUTH_TOKEN, None)
     
     @staticmethod
     def get_azure_openai_apikey() -> str:
