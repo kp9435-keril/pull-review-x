@@ -63,3 +63,27 @@ class GitHubClient:
             return response.json()
         except Exception as err:
             raise GitHubAPIException(f"Error in get_pr_diff_files: {err}")
+        
+    def post_pr_comment(self, comment: str):
+        """
+        post https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/comments
+        :param comment:
+        :return:
+        """
+        pr_number = EnvironmentVariableHelper.get_pr_number()
+        if not pr_number:
+            raise MissingConfigException("PR number is required")
+        headers = {
+            "Accept": "application/vnd.github.v3+json",
+            "authorization": f"Bearer {self.token}",
+        }
+        pr_comments_url = PR_COMMENTS_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+        data = {
+            "body": comment
+        }
+        try:
+            response = requests.post(pr_comments_url, headers=headers, data=json.dumps(data))
+            response.raise_for_status()
+            return response.json()
+        except Exception as err:
+            raise GitHubAPIException(f"Error in post_pr_comment: {err}")
