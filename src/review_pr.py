@@ -41,5 +41,5 @@ class ReviewPR:
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
-        self.azure_openai_client.post_comment(gpt_resp)
+        self.github_client.post_pr_comment(gpt_resp)
         return
