@@ -1,11 +1,9 @@
 import json
-import logging
 import requests
 
 from src.constants import *
 from src.exceptions import *
 from src.helpers import EnvironmentVariableHelper
-logger = logging.getLogger(__name__)
 
 
 class GitHubClient:
@@ -103,7 +101,6 @@ class GitHubClient:
             }
             response = requests.get(contents_url, headers=headers)
             response.raise_for_status()
-            logger.warning(response.text)
             return response.text
         except Exception as err:
             raise GitHubAPIException(f"Error in get_file_contents: {err}")
