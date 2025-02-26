@@ -38,5 +38,4 @@ class AzureOpenAIClient:
         if "choices" not in content or not content["choices"]:
             return None
         review_message = content["choices"][0]["message"]["content"]
-        logger.info("gpt review message: {0}".format(review_message))
         return str(review_message)
