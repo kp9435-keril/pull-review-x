@@ -90,17 +90,17 @@ class GitHubClient:
         except Exception as err:
             raise GitHubAPIException(f"Error in post_pr_comment: {err}")
         
-    def get_file_contents(self, raw_url: str):
+    def get_file_contents(self, contents_url: str):
         """
-        get raw_url
-        :param raw_url:
+        get contents_url
+        :param contents_url:
         :return:
         """
         try:
             headers = {
                 "authorization": f"Bearer {self.token}",
             }
-            response = requests.get(raw_url, headers=headers)
+            response = requests.get(contents_url, headers=headers)
             response.raise_for_status()
             logger.warning(response.text)
             return response.text
