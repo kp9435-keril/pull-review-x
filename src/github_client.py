@@ -97,7 +97,10 @@ class GitHubClient:
         :return:
         """
         try:
-            response = requests.get(raw_url)
+            headers = {
+                "authorization": f"Bearer {self.token}",
+            }
+            response = requests.get(raw_url, headers=headers)
             response.raise_for_status()
             logger.warning(response.text)
             return response.text
