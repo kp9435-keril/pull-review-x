@@ -72,7 +72,7 @@ Let's understand the keys of suggestion map object given below (all 4 fields are
 "filename" - The filename of the file where the changes are made, this should be same as provided in the input.
 "diff_patch" - The diff patch of the file, this should be same as provided in the input.
 "suggestion_title" - It should contain relevant title for the suggestion.
-"suggestion_description" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+"suggestion_comment" - The comment of the suggestion should be crystal clear and concise. It should be text and only text.
 
 Please adhere strictly to the following json format for your response:
 {
@@ -81,7 +81,7 @@ Please adhere strictly to the following json format for your response:
             "filename": "...",
             "diff_patch": "...",
             "suggestion_title": "...",
-            "suggestion_description": "..."
+            "suggestion_comment": "..."
         }
     ],
     "general": [
@@ -89,7 +89,7 @@ Please adhere strictly to the following json format for your response:
             "filename": "...",
             "diff_patch": "...",
             "suggestion_title": "...",
-            "suggestion_description": "..."
+            "suggestion_comment": "..."
         }
     ],
     "error_handling": [
@@ -97,7 +97,7 @@ Please adhere strictly to the following json format for your response:
             "filename": "...",
             "diff_patch": "...",
             "suggestion_title": "...",
-            "suggestion_description": "..."
+            "suggestion_comment": "..."
         }
     ],
 }
