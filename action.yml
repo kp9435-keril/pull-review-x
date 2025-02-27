@@ -18,13 +18,13 @@ inputs:
     description: "Azure OpenAI Model"
     required: true
   PR_SUMMARY:
-    description: "Whether draw conclusion based on PR Diff"
+    description: "Whether allow workflow to analyze PR and provide summary in comment."
     required: false
   PR_SUGGEST_CHANGES:
-    description: "Whether review PR code change by patch"
+    description: "Whether allow workflow to analyze PR & suggest changes in comment, if required."
     required: false
   PR_COMMENT_SUGGESTED_CHANGES:
-    description: "Whether comment on PR with suggested changes"
+    description: "Whether allow workflow to drop review comment in the patch for the suggested changes."
     required: false
 runs:
   using: "composite"
