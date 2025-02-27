@@ -32,9 +32,8 @@ class ReviewPR:
         if not pr_diffs or "commits" not in pr_diffs or not pr_diffs["commits"]:
             logger.warning("No pr commits, pr summary ignored")
             return
-        pr_title = pr_info["title"] if "title" in pr_info else ""
-        logger.warning(pr_info["body"])
-        pr_description = pr_info["body"] if "body" in pr_info else ""
+        pr_title = pr_info["title"] if ("title" in pr_info and pr_info["title"] is not None) else ""
+        pr_description = pr_info["body"] if ("body" in pr_info and pr_info["body"] is not None) else ""
         pr_content_patches = [diff_item["patch"] for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
         commit_messages = [commit["commit"]["message"] for commit in pr_diffs["commits"]]
         messages: list[dict[str, str]] = []
