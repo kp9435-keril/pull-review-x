@@ -68,39 +68,39 @@ Your primary objective is to analyze PR Change Patches for issues in 3 categorie
 
 Please note suggestions that should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
 
-Please adhere strictly to the following json format for the PR Suggestion:
+Let's understand the keys of suggestion map object given below (all 4 fields are mandatory for a suggestion):
+"filename" - The filename of the file where the changes are made, this should be same as provided in the input.
+"diff_patch" - The diff patch of the file, this should be same as provided in the input.
+"suggestion_title" - It should contain relevant title for the suggestion.
+"suggestion_description" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+
+Please adhere strictly to the following json format for your response:
 {
     "possible_issues_or_regressions": [
         {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
+            "filename": "...",
+            "diff_patch": "...",
+            "suggestion_title": "...",
+            "suggestion_description": "..."
         }
     ],
     "general": [
         {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
+            "filename": "...",
+            "diff_patch": "...",
+            "suggestion_title": "...",
+            "suggestion_description": "..."
         }
     ],
     "error_handling": [
         {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
+            "filename": "...",
+            "diff_patch": "...",
+            "suggestion_title": "...",
+            "suggestion_description": "..."
         }
     ],
 }
-
-Let's understand the placeholders of every suggestion (all 4 fields are mandatory for a suggestion):
-"Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
-"Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
-"Suggestion title goes here" - It should contain relevant title for the suggestion.
-"Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
 """
 
 FILE_CHANGES_TEMPLATE = """
