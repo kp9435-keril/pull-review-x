@@ -65,14 +65,12 @@ class ReviewPR:
         for diff_item in pr_diff_contents:
             diff_filename = diff_item["filename"]
             diff_patch = diff_item["patch"]
-            logger.warning(f"PR Diff Patch: {diff_patch}")
             file_content = self.github_client.get_file_contents(diff_item["contents_url"])
             format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
         
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
-        logger.warning(f"PR Suggest Changes Response: {gpt_resp}")
         comment = generate_changes_suggestion_comment(json.loads(gpt_resp))
         self.github_client.post_pr_comment(comment)
 
