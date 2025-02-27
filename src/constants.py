@@ -74,8 +74,8 @@ File Content:
 
 You need to analyze the provided inputs and suggest the changes required in four categories - "Possible Issues/Regressions", "General", "Error Handling", and "Best Practice".
 Please note that it is not mandatory to provide suggestion(s) for all categories. 
-You can provide suggestion(s) for the categories you think are relevant. The suggestion(s) to each category can be one or more as required.
-Strictly note that suggestions should not repeat and are not similar across categories.
+You can provide suggestion(s) for the categories you think are relevant. The suggestion(s) to each category can be zero, one or more as required.
+Strictly note that suggestions should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
 
 Let's understand the format of every suggestion:
 1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
