@@ -58,7 +58,8 @@ class ReviewPR:
             return 
         
         pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
-        
+        commit_id = pr_diffs["commits"][-1]["sha"]
+
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUGGEST_CHANGES_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
         for diff_item in pr_diff_contents:
@@ -76,19 +77,21 @@ class ReviewPR:
 
         get_pr_comment_suggested_changes = EnvironmentVariableHelper.get_pr_comment_suggested_changes()
         if get_pr_comment_suggested_changes:
-            self.pr_comment_suggested_changes(json.loads(gpt_resp))
+            self.pr_comment_suggested_changes(commit_id=commit_id, suggested_changes=json.loads(gpt_resp))
 
         return
     
-    def pr_comment_suggested_changes(self, suggested_changes: dict[str, list[dict[str, str]]]) -> None:
+    def pr_comment_suggested_changes(self, commit_id: str, suggested_changes: dict[str, list[dict[str, str]]]) -> None:
         if not suggested_changes:
             logger.warning("No suggested changes, pr comment suggested changes ignored")
             return
         for _ , values in suggested_changes.items():
             for suggestion in values:
+                logger.warnning(commit_id)
+                logger.warning(suggestion["diff_patch"])
                 comment = {
                     "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_description"]),
-                    "commit_id": suggestion["diff_sha"],
+                    "commit_id": commit_id,
                     "path": suggestion["filename"],
                     "line": get_patch_position(suggestion["diff_patch"]),
                     "side": "RIGHT"
