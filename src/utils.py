@@ -16,36 +16,34 @@ def format_gpt_message(messages: list[dict[str, str]], contents: list[str], role
             "content": content
         })
 
-def generate_html_table(table_data: dict[str, Any]) -> str:
+def generate_changes_suggestion_comment(table_data: dict[str, Any]) -> str:
     """
     generate html table from table data
     :param table_data: table data
     :return: html table
     """
-    table = f"""<table>"""
-    for category, suggestions in table_data.items():
-        table += f"""
-        <tr>
-            <td>{category.replace("_", " ").title()}</td>
-        """
-        if(suggestions):
-            table += f"""
-            <td>
-                <ul>
-            """
-            for suggestion in suggestions:
-                table += f"""
-                <li>{suggestion}</li>
-                """
-            table += f"""
-                </ul>
-            </td>
-            """
-        else:
-            table += f"""
-            <td>No suggestions</td>
-            """
-        
-    
-    table += f"""</table>"""
-    return table
+    comment = f"""
+#### :desktop_computer: PR Code Suggestions"""
+
+    comment += f"""
+| Category                      | Suggestion(s)                                                   | 
+| :---------------------------- | :-------------------------------------------------------------- |
+| Possible Issues / Regressions | {generate_suggestions_cell_data(table_data["possible_issues"])} |
+| General                       | {generate_suggestions_cell_data(table_data["general"])}         |
+| Error Handling                | {generate_suggestions_cell_data(table_data["error_handling"])}  |
+| Best Practice                 | {generate_suggestions_cell_data(table_data["best_practice"])}   |
+"""
+    return comment
+
+def generate_suggestions_cell_data(suggestions: list[dict[str, str]]) -> str:
+    """
+    generate suggestions cell data
+    :param suggestions: suggestions
+    :return: suggestions cell data
+    """
+    if not suggestions:
+        return ":fire: Looks like this came up clean! :fire:"
+    suggestions_data = ""
+    for suggestion in suggestions:
+        suggestions_data += f"<details><summary>{suggestion["suggestion_title"]}</summary>{suggestion['suggestion_description']}</details>"
+    return suggestions_data
