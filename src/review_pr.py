@@ -17,9 +17,9 @@ class ReviewPR:
         pr_diffs = self.github_client.get_pr_diff_files()
         pr_info = self.github_client.get_pr_info()
 
-        # get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
-        # if get_pr_summary:
-        #     self.get_pr_summary(pr_diffs=pr_diffs, pr_info=pr_info)
+        get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
+        if get_pr_summary:
+            self.get_pr_summary(pr_diffs=pr_diffs, pr_info=pr_info)
         
         get_pr_suggest_changes = EnvironmentVariableHelper.get_pr_suggest_changes()
         if get_pr_suggest_changes:
@@ -65,4 +65,6 @@ class ReviewPR:
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
-        logger.warning(generate_changes_suggestion_comment(json.loads(gpt_resp)))
+        comment = generate_changes_suggestion_comment(json.loads(gpt_resp))
+        self.github_client.post_pr_comment(comment)
+        return
