@@ -34,7 +34,7 @@ The "Estimated efforts goes here" is a placeholder for you to fill in with the e
 The "Recommended focus area 1 goes here" section should be filled with the appropriate focus area. You can add more focus areas as needed. 
 
 Please adhere strictly to the following markdown format for the PR summary:
-#### :rocket:PR Reviewer Guide
+#### :rocket: PR Reviewer Guide
 #### Here are some key observations to aid the review process:
 ##### :ticket: "Title summary goes here"
 ##### :page_with_curl: "Description Summary goes here"
@@ -82,7 +82,7 @@ Let's understand the format of every suggestion:
 2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
 3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
 4. "Suggestion title goes here" - It should contain the title of the suggestion.
-5. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It can also contain the code snippets if required.
+5. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\>" tag can be used for new line.
 
 Please adhere strictly to the following json format for the PR suggestions:
 {
