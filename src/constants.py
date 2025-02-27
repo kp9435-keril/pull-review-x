@@ -79,7 +79,7 @@ You have to provide output keeping below points in mind:
 2. You can provide suggestion(s) for the categories you think are relevant. The suggestion(s) to each category can be zero, one or more as required.
 3. Please note that suggestions should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
 
-Let's understand the format of every suggestion:
+Let's understand the format of every suggestion (all 5 fields are mandatory):
 1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
 2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
 3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
