@@ -19,7 +19,7 @@ jobs:
       - name: Copilot PR Review
         uses: kp9435-keril/pull-review-x@<your target version like v1.0.0>
         with:
-            GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_AUTH_TOKEN }}
+            GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             AZURE_OPENAI_APIKEY: ${{ secrets.AZURE_OPENAI_APIKEY }}
             AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
             AZURE_OPENAI_MODEL: <Your Deployed Model>
