@@ -82,7 +82,7 @@ Let's understand the format of every suggestion:
 2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
 3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
 4. "Suggestion title goes here" - It should contain the title of the suggestion.
-5. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\>" tag can be used for new line.
+5. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
 
 Please adhere strictly to the following json format for the PR suggestions:
 {
