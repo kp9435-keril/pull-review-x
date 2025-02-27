@@ -42,7 +42,7 @@ def generate_suggestions_cell_data(suggestions: list[dict[str, str]]) -> str:
     :return: suggestions cell data
     """
     if not suggestions:
-        return ":fire: Looks like this came up clean! :fire:"
+        return "Looks like this came up clean! :fire:"
     suggestions_data = ""
     for suggestion in suggestions:
         suggestions_data += f"<details><summary>{suggestion["suggestion_title"]}</summary>{suggestion['suggestion_description']}</details>"
