@@ -112,7 +112,7 @@ You have to provide output keeping below points in mind:
     ]
 }
 
-Let's understand the format of every suggestion (all 4 fields are mandatory for a suggestion):
+Let's understand the placeholders of every suggestion (all 4 fields are mandatory for a suggestion):
 "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
 "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
 "Suggestion title goes here" - It should contain relevant title for the suggestion.
