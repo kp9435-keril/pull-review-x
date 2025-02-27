@@ -43,6 +43,9 @@ class EnvironmentVariableHelper:
     
     def get_pr_suggest_changes() -> bool:
         return EnvironmentVariableHelper.get_env_var(PR_SUGGEST_CHANGES, True)
+    
+    def get_pr_comment_suggested_changes() -> bool:
+        return EnvironmentVariableHelper.get_env_var(PR_COMMENT_SUGGESTED_CHANGES, True)
 
     @staticmethod
     def get_env_var(name: str, fallback: Any) -> Any:
