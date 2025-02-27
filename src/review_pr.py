@@ -84,6 +84,7 @@ class ReviewPR:
         if not suggested_changes:
             logger.warning("No suggested changes, pr comment suggested changes ignored")
             return
+        logger.warning(suggested_changes)
         for _ , values in suggested_changes.items():
             for suggestion in values:
                 comment = {
