@@ -74,19 +74,11 @@ File Content:
 "File Content goes here"
 
 You have to provide output keeping below points in mind:
-1. You need to analyze the provided inputs and suggest the changes required in four categories - "Possible Issues/Regressions", "General", "Error Handling", and "Best Practice".
-2. You can provide suggestion(s) for the categories you think are relevant. The suggestion(s) to each category can be zero, one or more as required.
-3. Please note that suggestions should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
-
-Let's understand the format of every suggestion (all 4 fields are mandatory):
-1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
-2. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
-3. "Suggestion title goes here" - It should contain the title of the suggestion.
-4. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
-
-Please adhere to the following json format for the PR suggestions:
+1. You need to analyze the patches for 4 categories - "Possible Issues/Regressions", "General", "Error Handling", and "Best Practice".
+2. Please note suggestions that should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
+3. Based on 4 categories given list down your suggestions adhering strictly to the following json format for your response:
 {
-    "possible_issues": [
+    "possible_issues_or_regressions": [
         {
             "filename": "Filename goes here",
             "diff_patch": "Diff Patch goes here",
@@ -120,10 +112,13 @@ Please adhere to the following json format for the PR suggestions:
     ]
 }
 
-Strict Notes:
-1. Strictly adhere to given json format for the suggestions.
-2. Suggestions should not repeat and should not be similar across categories, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one in one of the categories.
-3. suggestion_description should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+Let's understand the format of every suggestion (all 4 fields are mandatory for a suggestion):
+"Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
+"Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
+"Suggestion title goes here" - It should contain relevant title for the suggestion.
+"Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+
+Strict notes for you, You will adhere to 3 point given regarding providing of response output.
 """
 
 FILE_CHANGES_TEMPLATE = """
