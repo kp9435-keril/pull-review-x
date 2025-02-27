@@ -47,7 +47,7 @@ def generate_suggestions_cell_data(suggestions: list[dict[str, str]]) -> str:
         return "Looks like this came up clean! :fire:"
     suggestions_data = ""
     for suggestion in suggestions:
-        suggestions_data += f"<details><summary>{suggestion["suggestion_title"]}</summary>{suggestion['suggestion_description']}</details>"
+        suggestions_data += f"<details><summary>{suggestion["suggestion_title"]}</summary>{suggestion['suggestion_comment']}</details>"
     return suggestions_data
 
 def get_comment_body(suggestion_title: str, suggestion_description: str) -> str:
