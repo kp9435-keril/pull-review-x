@@ -87,7 +87,7 @@ class ReviewPR:
         for _ , values in suggested_changes.items():
             for suggestion in values:
                 comment = {
-                    "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_description"]),
+                    "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_comment"]),
                     "commit_id": commit_id,
                     "path": suggestion["filename"],
                     "line": get_patch_position(suggestion["diff_patch"]),

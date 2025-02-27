@@ -50,15 +50,15 @@ def generate_suggestions_cell_data(suggestions: list[dict[str, str]]) -> str:
         suggestions_data += f"<details><summary>{suggestion["suggestion_title"]}</summary>{suggestion['suggestion_comment']}</details>"
     return suggestions_data
 
-def get_comment_body(suggestion_title: str, suggestion_description: str) -> str:
+def get_comment_body(suggestion_title: str, suggestion_comment: str) -> str:
     """
     get comment body
     :param suggestion_title: suggestion title
-    :param suggestion_description: suggestion description
+    :param suggestion_comment: suggestion comment
     :return: comment body
     """
     return f"""{suggestion_title}
-{suggestion_description}""";
+{suggestion_comment}""";
 
 GIT_PATCH_PATTERN = r'@@ -(\d+),(\d+) \+(\d+),(\d+) @@'
 
