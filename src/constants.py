@@ -101,6 +101,7 @@ Please adhere strictly to the following json format for your response:
         }
     ],
 }
+Please ensure that your response should always be a valid json object string and adhere to the above format.
 """
 
 FILE_CHANGES_TEMPLATE = """
