@@ -65,6 +65,7 @@ class ReviewPR:
         for diff_item in pr_diff_contents:
             diff_filename = diff_item["filename"]
             diff_patch = diff_item["patch"]
+            logger.warning(f"PR Diff Patch: {diff_patch}")
             file_content = self.github_client.get_file_contents(diff_item["contents_url"])
             format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
         
