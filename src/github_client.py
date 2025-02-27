@@ -1,11 +1,12 @@
 import json
+import logging
 import requests
 
 from src.constants import *
 from src.exceptions import *
 from src.helpers import EnvironmentVariableHelper
 
-
+logger = logging.getLogger(__name__)
 class GitHubClient:
     def __init__(self):
         self.token = EnvironmentVariableHelper.get_github_auth_token()
@@ -118,6 +119,7 @@ class GitHubClient:
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
         }
+        logger.warning(f"Posting review comment: {comment}")
         pr_review_url = PR_REVIEW_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
         try:
             response = requests.post(pr_review_url, headers=headers, data=json.dumps(comment))
