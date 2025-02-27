@@ -83,7 +83,7 @@ You have to provide output keeping below points in mind:
             "filename": "Filename goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
+            "suggestion_comment": "Suggestion comment goes here"
         }
     ],
     "general": [
@@ -91,7 +91,7 @@ You have to provide output keeping below points in mind:
             "filename": "Filename goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
+            "suggestion_comment": "Suggestion comment goes here"
         }
     ],
     "error_handling": [
@@ -99,7 +99,7 @@ You have to provide output keeping below points in mind:
             "filename": "Filename goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
+            "suggestion_comment": "Suggestion comment goes here"
         }
     ]
 }
@@ -108,7 +108,7 @@ Let's understand the placeholders of every suggestion (all 4 fields are mandator
 "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
 "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
 "Suggestion title goes here" - It should contain relevant title for the suggestion.
-"Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+"Suggestion comment goes here" - It should contain the comment of the suggestion. The comment of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
 
 Strict notes for you, Your response should be a valid json adhering to the above format.
 """
