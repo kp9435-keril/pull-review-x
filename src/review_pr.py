@@ -87,7 +87,7 @@ class ReviewPR:
             return
         for _ , values in suggested_changes.items():
             for suggestion in values:
-                logger.warnning(commit_id)
+                logger.warning(commit_id)
                 logger.warning(suggestion["diff_patch"])
                 comment = {
                     "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_description"]),
