@@ -48,4 +48,4 @@ def generate_html_table(table_data: dict[str, Any]) -> str:
         
     
     table += f"""</table>"""
-    print(table)
+    return table
