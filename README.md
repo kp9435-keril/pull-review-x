@@ -16,7 +16,7 @@ jobs:
   review-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Copilot PR Review
+      - name: PR Review
         uses: kp9435-keril/pull-review-x@<your target version like v1.0.0>
         with:
             GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
