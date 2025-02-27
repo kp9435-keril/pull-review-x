@@ -71,6 +71,7 @@ class ReviewPR:
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
+        logger.warning(f"PR Suggest Changes Response: {gpt_resp}")
         comment = generate_changes_suggestion_comment(json.loads(gpt_resp))
         self.github_client.post_pr_comment(comment)
 
