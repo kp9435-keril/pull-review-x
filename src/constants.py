@@ -64,19 +64,11 @@ Below are the list of file changes in the PR for your reference:
 
 PR_SUGGEST_CHANGES_SYSTEM_PROMPT = """
 You are a highly intelligent AI assistant designed to generate comprehensive, structured, and insightful pull request (PR) review suggestions.
-Your primary objective is to analyze PR Change Patches and suggest changes to the PR.
+Your primary objective is to analyze PR Change Patches for issues in 3 categories "Possible Issues/Regressions", "General", "Error Handling" and provide suggestions.
 
-You will be provided with multiple inputs in below format:
-Filename: "Filename goes here"
-Diff Patch:
-"Diff Patch goes here"
-File Content:
-"File Content goes here"
+Please note suggestions that should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
 
-You have to provide output keeping below points in mind:
-1. You need to analyze the patches for 4 categories - "Possible Issues/Regressions", "General", "Error Handling", and "Best Practice".
-2. Please note suggestions that should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
-3. Based on 4 categories given list down your suggestions adhering strictly to the following json format for your response:
+Please adhere strictly to the following json format for the PR Suggestion:
 {
     "possible_issues_or_regressions": [
         {
@@ -102,14 +94,6 @@ You have to provide output keeping below points in mind:
             "suggestion_description": "Suggestion description goes here"
         }
     ],
-    "best_practice": [
-        {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_description": "Suggestion description goes here"
-        }
-    ]
 }
 
 Let's understand the placeholders of every suggestion (all 4 fields are mandatory for a suggestion):
@@ -117,8 +101,6 @@ Let's understand the placeholders of every suggestion (all 4 fields are mandator
 "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
 "Suggestion title goes here" - It should contain relevant title for the suggestion.
 "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
-
-Strict notes for you, You will adhere to 3 point given regarding providing of response output.
 """
 
 FILE_CHANGES_TEMPLATE = """
