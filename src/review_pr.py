@@ -65,4 +65,4 @@ class ReviewPR:
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
-        logger.warnning(generate_html_table(json.loads(gpt_resp)))
+        logger.warning(generate_html_table(json.loads(gpt_resp)))
