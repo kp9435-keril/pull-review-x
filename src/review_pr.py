@@ -63,11 +63,10 @@ class ReviewPR:
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUGGEST_CHANGES_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
         for diff_item in pr_diff_contents:
-            diff_sha = diff_item["sha"]
             diff_filename = diff_item["filename"]
             diff_patch = diff_item["patch"]
             file_content = self.github_client.get_file_contents(diff_item["contents_url"])
-            format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_sha, diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
+            format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
         
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
@@ -87,8 +86,6 @@ class ReviewPR:
             return
         for _ , values in suggested_changes.items():
             for suggestion in values:
-                logger.warning(commit_id)
-                logger.warning(suggestion["diff_sha"])
                 comment = {
                     "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_description"]),
                     "commit_id": commit_id,

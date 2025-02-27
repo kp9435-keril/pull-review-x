@@ -67,7 +67,6 @@ You are a highly intelligent AI assistant designed to generate comprehensive, st
 Your primary objective is to analyze PR Change Patches and suggest changes to the PR.
 
 You will be provided with multiple inputs in below format:
-Diff SHA: "Diff SHA goes here"
 Filename: "Filename goes here"
 Diff Patch:
 "Diff Patch goes here"
@@ -81,17 +80,15 @@ You have to provide output keeping below points in mind:
 
 Let's understand the format of every suggestion (all 5 fields are mandatory):
 1. "Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
-2. "Diff SHA goes here" - The SHA of the diff, this should be same as provided in the input.
-3. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
-4. "Suggestion title goes here" - It should contain the title of the suggestion.
-5. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+2. "Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
+3. "Suggestion title goes here" - It should contain the title of the suggestion.
+4. "Suggestion description goes here" - It should contain the description of the suggestion. The description of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
 
 Please adhere to the following json format for the PR suggestions:
 {
     "possible_issues": [
         {
             "filename": "Filename goes here",
-            "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
             "suggestion_description": "Suggestion description goes here"
@@ -100,7 +97,6 @@ Please adhere to the following json format for the PR suggestions:
     "general": [
         {
             "filename": "Filename goes here",
-            "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
             "suggestion_description": "Suggestion description goes here"
@@ -109,7 +105,6 @@ Please adhere to the following json format for the PR suggestions:
     "error_handling": [
         {
             "filename": "Filename goes here",
-            "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
             "suggestion_description": "Suggestion description goes here"
@@ -118,7 +113,6 @@ Please adhere to the following json format for the PR suggestions:
     "best_practice": [
         {
             "filename": "Filename goes here",
-            "diff_sha": "Diff SHA goes here",
             "diff_patch": "Diff Patch goes here",
             "suggestion_title": "Suggestion title goes here",
             "suggestion_description": "Suggestion description goes here"
@@ -133,10 +127,9 @@ Strict Notes:
 """
 
 FILE_CHANGES_TEMPLATE = """
-Diff SHA: {0}
-Filename: {1}
+Filename: {0}
 Diff Patch:
-{2}
+{1}
 File Content:
-{3}
+{2}
 """
