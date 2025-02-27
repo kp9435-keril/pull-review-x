@@ -23,7 +23,7 @@ class ReviewPR:
         
         get_pr_suggest_changes = EnvironmentVariableHelper.get_pr_suggest_changes()
         if get_pr_suggest_changes:
-            self.get_pr_suggest_changes(pr_diffs=pr_diffs, pr_info=pr_info)
+            self.get_pr_suggest_changes(pr_diffs=pr_diffs)
     
     def get_pr_summary(self, pr_diffs: dict[str, Any], pr_info: dict[str, Any]) -> None:
         if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
