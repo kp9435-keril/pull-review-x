@@ -29,12 +29,12 @@ def generate_changes_suggestion_comment(table_data: dict[str, Any]) -> str:
 #### :desktop_computer: PR Code Suggestions"""
 
     comment += f"""
-| Category                      | Suggestion(s)                                                   | 
-| :---------------------------- | :-------------------------------------------------------------- |
-| Possible Issues / Regressions | {generate_suggestions_cell_data(table_data["possible_issues"])} |
-| General                       | {generate_suggestions_cell_data(table_data["general"])}         |
-| Error Handling                | {generate_suggestions_cell_data(table_data["error_handling"])}  |
-| Best Practice                 | {generate_suggestions_cell_data(table_data["best_practice"])}   |
+| Category                      | Suggestion(s)                                                                  | 
+| :---------------------------- | :----------------------------------------------------------------------------- |
+| Possible Issues / Regressions | {generate_suggestions_cell_data(table_data["possible_issues_or_regressions"])} |
+| General                       | {generate_suggestions_cell_data(table_data["general"])}                        |
+| Error Handling                | {generate_suggestions_cell_data(table_data["error_handling"])}                 |
+| Best Practice                 | {generate_suggestions_cell_data(table_data["best_practice"])}                  |
 """
     return comment
 
