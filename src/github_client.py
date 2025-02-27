@@ -74,7 +74,7 @@ class GitHubClient:
         if not pr_number:
             raise MissingConfigException("PR number is required")
         headers = {
-            "Accept": "application/vnd.github.v3+json",
+            "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
         }
         pr_comment_url = PR_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
@@ -104,3 +104,24 @@ class GitHubClient:
             return response.text
         except Exception as err:
             raise GitHubAPIException(f"Error in get_file_contents: {err}")
+    
+    def post_review_comment(self, comment: dict[str, str]):
+        """
+        post https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}/comments
+        :param comment:
+        :return:
+        """
+        pr_number = EnvironmentVariableHelper.get_pr_number()
+        if not pr_number:
+            raise MissingConfigException("PR number is required")
+        headers = {
+            "Accept": "application/vnd.github+json",
+            "authorization": f"Bearer {self.token}",
+        }
+        pr_review_url = PR_REVIEW_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+        try:
+            response = requests.post(pr_review_url, headers=headers, data=json.dumps(comment))
+            response.raise_for_status()
+            return response.json()
+        except Exception as err:
+            raise GitHubAPIException(f"Error in post_review_comment: {err}")
