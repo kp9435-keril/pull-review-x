@@ -26,25 +26,21 @@ MODEL_USER_ROLE = "user"
 MODEL_ASSIST_ROLE = "assistant"
 
 # Prompt messages
-
 PR_SUMMARY_SYSTEM_PROMPT = """
-You are a highly intelligent AI assistant designed to generate comprehensive, structured, and insightful pull request (PR) review summaries.
-Your primary objective is to analyze PR Title, PR Description, PR Commit Messages, and PR Change Patches to generate a concise and informative summary.
+You are a GitHub Pull Review Assistant. Your task is to analyze provided pull request details - including the the pull request title, description, commit messages, and patches - and generate a comprehensive pull review summary.
+Your response must strictly adhere to the markdown template provided below, and all sections are required. Do not add any extra commentary or text outside of the markdown structure.
 
-The response should strictly in markdown format given below. 
-The "Title summary goes here" and "Description Summary goes here" are placeholders for you to fill in with the appropriate content. Replace it with appropriate content.
-The "Estimated efforts goes here" is a placeholder for you to fill in with the estimated efforts to review the PR. It should be filled on the scale of 5 with appropriate emojis. You should use ":large_blue_circle:" for highlighting the efforts and remaining fill with ":white_circle:" emojis.
-The "Recommended focus area 1 goes here" section should be filled with the appropriate focus area. You can add more focus areas as needed. 
-
+Use the following markdown template exactly as a guide for your response:
 Please adhere strictly to the following markdown format for the PR summary:
 #### :rocket: PR Reviewer Guide
 #### Here are some key observations to aid the review process:
-##### :ticket: "Title summary goes here"
-##### :page_with_curl: "Description Summary goes here"
-##### :stopwatch: Estimated efforts to review: "Estimated efforts goes here"
+##### :ticket: [Insert the pull request title here]
+##### :page_with_curl: [Insert a brief summary of the pull request here]
+##### :stopwatch: Estimated efforts to review: [Insert the estimated efforts to review the PR here. It should be filled on the scale of 5 with appropriate emojis. You should use ":large_blue_circle:" for highlighting the efforts and remaining fill with ":white_circle:" emojis.]
 
-##### :zap: Recommended focus area for review
-- "Recommended focus area 1 goes here"
+##### :zap: Recommended focus area for review:
+- [Insert the recommended focus area 1 here]
+- [Insert more similarly here if needed]
 """
 
 PR_SUMMARY_TITLE_INTRO = """
@@ -64,34 +60,19 @@ Below are the list of file changes in the PR for your reference:
 """
 
 PR_SUGGEST_CHANGES_SYSTEM_PROMPT = """
-You are a highly intelligent AI assistant designed to generate comprehensive, structured, and insightful pull request (PR) review suggestions.
-Your primary objective is to analyze PR Change Patches and suggest changes to the PR.
-
-You will be provided with multiple inputs in below format:
-Filename: "Filename goes here"
-Git Diff Patch:
-"Diff Patch goes here"
-File Content:
-"File Content goes here"
-
-You have to provide output keeping below points in mind:
-1. You need to analyze the patches for 3 categories - "Possible Issues/Regressions", "General", "Error Handling".
-2. Please note suggestions that should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
-3. Based on 3 categories given list down your suggestions adhering strictly to the following json format for your response:
-[
-    {
-        "category": <category>,
-        "line_number": <line_number>,
-        "suggestion_title": <suggestion_title>,
-        "suggestion_description": <suggestion_description>,
-    }
-]
-
-Strict notes for you, Your response should be a valid json adhering to the above format.
+You are a GitHub Pull Request Suggestion Generator. Your task is to analyze the provided input - which includes the file name, diff patch, and file content - and generate a list of suggestions for changes in the pull request.
+Your response must be a valid JSON array of suggestion objects.
+Each suggestion object should contain the following keys:
+- "category": A string that must be one of the following: "possible issues or regression", "general" or "error handling".
+- "file_name": The name of the file where the suggestion is applicable. This should be a valid file name as provided in the input.
+- "line_number" : An integer that indicates the line number in the file where the suggestion is applicable. The line number should correspond on the right side of the diff patch.
+- "suggestion_title": A string that describes the suggestion in a concise manner.
+- "suggestion_comment": A string that provides a detailed explanation of the suggestion. This should include the reasoning behind the suggestion and any relevant context.
+Ensure that the JSON is well-formed and valid. Do not include any additional text or commentary outside of the JSON structure.
 """
 
 FILE_CHANGES_TEMPLATE = """
-Filename: {0}
+File Name: {0}
 Diff Patch:
 {1}
 File Content:
