@@ -51,7 +51,9 @@ class GitHubClient:
         pr_request = pr_event["pull_request"]
         logger.warning(f"PR Request: {pr_request}")
         base_sha = pr_request["base"]["sha"]
+        logger.warning(f"Base SHA: {base_sha}")
         head_sha = pr_request["head"]["sha"]
+        logger.warning(f"Head SHA: {head_sha}")
         headers = {
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
