@@ -3,7 +3,6 @@ from typing import Any
 
 from src.constants import *
 
-
 class EnvironmentVariableHelper:
     @staticmethod
     def get_repo() -> str:

@@ -7,8 +7,6 @@ from src.constants import *
 from src.exceptions import InvalidOpenAIConfigException
 from src.helpers import EnvironmentVariableHelper
 
-logger = logging.getLogger(__name__)
-
 class AzureOpenAIClient:
     def __init__(self):
         self.api_key = EnvironmentVariableHelper.get_azure_openai_apikey()

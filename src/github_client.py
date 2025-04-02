@@ -119,7 +119,6 @@ class GitHubClient:
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
         }
-        logger.warning(f"Posting review comment: {comment}")
         pr_review_url = PR_REVIEW_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
         try:
             response = requests.post(pr_review_url, headers=headers, data=json.dumps(comment))
