@@ -14,29 +14,36 @@ class ReviewPR:
         self.azure_openai_client = AzureOpenAIClient()
     
     def review_pr(self):
-        pr_diffs = self.github_client.get_pr_diff_files()
         pr_info = self.github_client.get_pr_info()
+        pr_diffs = self.github_client.get_pr_diff_files()
 
-        get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
-        if get_pr_summary:
-            self.get_pr_summary(pr_diffs=pr_diffs, pr_info=pr_info)
-        
-        get_pr_suggest_changes = EnvironmentVariableHelper.get_pr_suggest_changes()
-        if get_pr_suggest_changes:
-            self.get_pr_suggest_changes(pr_diffs=pr_diffs)
-    
-    def get_pr_summary(self, pr_diffs: dict[str, Any], pr_info: dict[str, Any]) -> None:
         if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
             logger.warning("No pr diff files, pr summary ignored")
             return
         if not pr_diffs or "commits" not in pr_diffs or not pr_diffs["commits"]:
             logger.warning("No pr commits, pr summary ignored")
             return
-        
+
         pr_title = pr_info["title"] if ("title" in pr_info and pr_info["title"] is not None) else ""
+        logger.warning(f"PR Title: {pr_title}")
         pr_description = pr_info["body"] if ("body" in pr_info and pr_info["body"] is not None) else ""
-        pr_content_patches = [diff_item["patch"] for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
+        logger.warning(f"PR Description: {pr_description}")
         commit_messages = [commit["commit"]["message"] for commit in pr_diffs["commits"]]
+        logger.warning(f"Commit Messages: {commit_messages}")
+        pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
+
+        get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
+        if get_pr_summary:
+            self.get_pr_summary(pr_title=pr_title, pr_description=pr_description, commit_messages=commit_messages, pr_diff_contents=pr_diff_contents)
+        
+        # get_pr_suggest_changes = EnvironmentVariableHelper.get_pr_suggest_changes()
+        # if get_pr_suggest_changes:
+        #     self.get_pr_suggest_changes(pr_diffs=pr_diffs)
+    
+    def get_pr_summary(self, pr_title: str, pr_description: str, commit_messages: list[Any], pr_diff_contents: list[Any]) -> None:
+
+        pr_content_patches = [diff_item["patch"] for diff_item in pr_diff_contents]
+        logger.warning(f"PR Content Patches: {pr_content_patches}")
 
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUMMARY_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
@@ -48,50 +55,51 @@ class ReviewPR:
         gpt_resp = self.azure_openai_client.request_gpt(messages)
         if not gpt_resp:
             return
-        self.github_client.post_pr_comment(gpt_resp)
+        # self.github_client.post_pr_comment(gpt_resp)
         
         return
     
-    def get_pr_suggest_changes(self, pr_diffs: dict[str, Any]) -> None:
-        if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
-            logger.warning("No pr diff files, pr suggest changes ignored")
-            return 
+    # def get_pr_suggest_changes(self, pr_diffs: dict[str, Any]) -> None:
+    #     if not pr_diffs or "files" not in pr_diffs or not pr_diffs["files"]:
+    #         logger.warning("No pr diff files, pr suggest changes ignored")
+    #         return 
         
-        pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
-        commit_id = pr_diffs["commits"][-1]["sha"]
+    #     pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
+    #     commit_id = pr_diffs["commits"][-1]["sha"]
 
-        messages: list[dict[str, str]] = []
-        format_gpt_message(messages, [PR_SUGGEST_CHANGES_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
-        for diff_item in pr_diff_contents:
-            diff_filename = diff_item["filename"]
-            diff_patch = diff_item["patch"]
-            file_content = self.github_client.get_file_contents(diff_item["contents_url"])
-            format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
+    #     messages: list[dict[str, str]] = []
+    #     format_gpt_message(messages, [PR_SUGGEST_CHANGES_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
+    #     for diff_item in pr_diff_contents:
+    #         diff_filename = diff_item["filename"]
+    #         diff_patch = diff_item["patch"]
+    #         file_content = self.github_client.get_file_contents(diff_item["contents_url"])
+
+    #         format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
         
-        gpt_resp = self.azure_openai_client.request_gpt(messages)
-        if not gpt_resp:
-            return
-        comment = generate_changes_suggestion_comment(json.loads(gpt_resp))
-        self.github_client.post_pr_comment(comment)
+    #     gpt_resp = self.azure_openai_client.request_gpt(messages)
+    #     if not gpt_resp:
+    #         return
+    #     comment = generate_changes_suggestion_comment(json.loads(gpt_resp))
+    #     self.github_client.post_pr_comment(comment)
 
-        get_pr_comment_suggested_changes = EnvironmentVariableHelper.get_pr_comment_suggested_changes()
-        if get_pr_comment_suggested_changes:
-            self.pr_comment_suggested_changes(commit_id=commit_id, suggested_changes=json.loads(gpt_resp))
+    #     get_pr_comment_suggested_changes = EnvironmentVariableHelper.get_pr_comment_suggested_changes()
+    #     if get_pr_comment_suggested_changes:
+    #         self.pr_comment_suggested_changes(commit_id=commit_id, suggested_changes=json.loads(gpt_resp))
 
-        return
+    #     return
     
-    def pr_comment_suggested_changes(self, commit_id: str, suggested_changes: dict[str, list[dict[str, str]]]) -> None:
-        if not suggested_changes:
-            logger.warning("No suggested changes, pr comment suggested changes ignored")
-            return
-        for _ , values in suggested_changes.items():
-            for suggestion in values:
-                comment = {
-                    "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_comment"]),
-                    "commit_id": commit_id,
-                    "path": suggestion["filename"],
-                    "line": get_patch_position(suggestion["diff_patch"]),
-                    "side": "RIGHT"
-                }
-                self.github_client.post_review_comment(comment)
-        return
+    # def pr_comment_suggested_changes(self, commit_id: str, suggested_changes: dict[str, list[dict[str, str]]]) -> None:
+    #     if not suggested_changes:
+    #         logger.warning("No suggested changes, pr comment suggested changes ignored")
+    #         return
+    #     for _ , values in suggested_changes.items():
+    #         for suggestion in values:
+    #             comment = {
+    #                 "body": get_comment_body(suggestion["suggestion_title"], suggestion["suggestion_comment"]),
+    #                 "commit_id": commit_id,
+    #                 "path": suggestion["filename"],
+    #                 "line": get_patch_position(suggestion["diff_patch"]),
+    #                 "side": "RIGHT"
+    #             }
+    #             self.github_client.post_review_comment(comment)
+    #     return
