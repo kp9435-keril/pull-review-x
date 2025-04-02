@@ -43,7 +43,8 @@ class ReviewPR:
     def get_pr_summary(self, pr_title: str, pr_description: str, commit_messages: list[Any], pr_diff_contents: list[Any]) -> None:
 
         pr_content_patches = [diff_item["patch"] for diff_item in pr_diff_contents]
-        logger.warning(f"PR Content Patches: {pr_content_patches}")
+        print(f"PR Content Patches: {pr_content_patches}")
+        # logger.warning(f"PR Content Patches: {pr_content_patches}")
 
         messages: list[dict[str, str]] = []
         format_gpt_message(messages, [PR_SUMMARY_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
