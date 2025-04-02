@@ -14,6 +14,9 @@ inputs:
   AZURE_OPENAI_ENDPOINT:
     description: "Azure OpenAI Endpoint"
     required: true
+  AZURE_OPENAI_API_VERSION:
+    description: "Azure OpenAI API Version"
+    required: true
   AZURE_OPENAI_MODEL:
     description: "Azure OpenAI Model"
     required: true
