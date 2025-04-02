@@ -12,11 +12,18 @@ logger = logging.getLogger(__name__)
 class AzureOpenAIClient:
     def __init__(self):
         self.api_key = EnvironmentVariableHelper.get_azure_openai_apikey()
+        if self.api_key is None:
+            raise InvalidOpenAIConfigException("Azure OpenAI API key is not set.")
         self.endpoint = EnvironmentVariableHelper.get_azure_openai_endpoint()
+        if self.endpoint is None:
+            raise InvalidOpenAIConfigException("Azure OpenAI endpoint is not set.")
         self.api_version = EnvironmentVariableHelper.get_azure_openai_api_version()
+        if self.api_version is None:
+            raise InvalidOpenAIConfigException("Azure OpenAI API version is not set.")
         self.model = EnvironmentVariableHelper.get_azure_openai_model()
-        if not self.api_key or not self.endpoint or not self.api_version or not self.model:
-            raise InvalidOpenAIConfigException("Invalid Azure OpenAI configuration. Please check the environment variables.")
+        if self.model is None:
+            raise InvalidOpenAIConfigException("Azure OpenAI model is not set.")
+            
         self.azure_openai_client = AzureOpenAI(
             api_key=self.api_key,
             azure_endpoint=self.endpoint,
