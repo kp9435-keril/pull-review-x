@@ -48,6 +48,7 @@ runs:
           [[ "${{ inputs.GITHUB_AUTH_TOKEN }}" ]] || { echo "GITHUB_AUTH_TOKEN input is empty" ; exit 1; }
           [[ "${{ inputs.AZURE_OPENAI_APIKEY }}" ]] || { echo "AZURE_OPENAI_APIKEY input is empty" ; exit 1; }
           [[ "${{ inputs.AZURE_OPENAI_ENDPOINT }}" ]] || { echo "AZURE_OPENAI_ENDPOINT input is empty" ; exit 1; }
+          [[ "${{ inputs.AZURE_OPENAI_API_VERSION }}" ]] || { echo "AZURE_OPENAI_API_VERSION input is empty" ; exit 1; }
           [[ "${{ inputs.AZURE_OPENAI_MODEL }}" ]] || { echo "AZURE_OPENAI_MODEL input is empty" ; exit 1; }
       - name: Set Up Env
         shell: bash
@@ -77,6 +78,7 @@ runs:
           GITHUB_AUTH_TOKEN: ${{ inputs.GITHUB_AUTH_TOKEN }}
           AZURE_OPENAI_APIKEY: ${{ inputs.AZURE_OPENAI_APIKEY }}
           AZURE_OPENAI_ENDPOINT: ${{ inputs.AZURE_OPENAI_ENDPOINT }}
+          AZURE_OPENAI_API_VERSION: ${{ inputs.AZURE_OPENAI_API_VERSION }}
           AZURE_OPENAI_MODEL : ${{ inputs.AZURE_OPENAI_MODEL }}
           PR_SUMMARY: ${{ inputs.PR_SUMMARY }}
           PR_SUGGEST_CHANGES: ${{ inputs.PR_SUGGEST_CHANGES }}
