@@ -49,6 +49,7 @@ class GitHubClient:
             raise MissingConfigException("Please provide PR detail info")
         pr_event = json.loads(raw_event)
         pr_request = pr_event["pull_request"]
+        logger.warning(f"PR Request: {pr_request}")
         base_sha = pr_request["base"]["sha"]
         head_sha = pr_request["head"]["sha"]
         headers = {
