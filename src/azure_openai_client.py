@@ -14,12 +14,15 @@ class AzureOpenAIClient:
         self.api_key = EnvironmentVariableHelper.get_azure_openai_apikey()
         if self.api_key is None:
             raise InvalidOpenAIConfigException("Azure OpenAI API key is not set.")
+        
         self.endpoint = EnvironmentVariableHelper.get_azure_openai_endpoint()
         if self.endpoint is None:
             raise InvalidOpenAIConfigException("Azure OpenAI endpoint is not set.")
+        
         self.api_version = EnvironmentVariableHelper.get_azure_openai_api_version()
         if self.api_version is None:
             raise InvalidOpenAIConfigException("Azure OpenAI API version is not set.")
+        
         self.model = EnvironmentVariableHelper.get_azure_openai_model()
         if self.model is None:
             raise InvalidOpenAIConfigException("Azure OpenAI model is not set.")
