@@ -8,8 +8,8 @@ EVENT = "EVENT"
 GITHUB_AUTH_TOKEN = "GITHUB_AUTH_TOKEN"
 AZURE_OPENAI_APIKEY = "AZURE_OPENAI_APIKEY"
 AZURE_OPENAI_ENDPOINT = "AZURE_OPENAI_ENDPOINT"
-AZURE_OPENAI_MODEL = "AZURE_OPENAI_MODEL"
 AZURE_OPENAI_API_VERSION = "AZURE_OPENAI_API_VERSION"
+AZURE_OPENAI_MODEL = "AZURE_OPENAI_MODEL"
 PR_SUMMARY = "PR_SUMMARY"
 PR_SUGGEST_CHANGES = "PR_SUGGEST_CHANGES"
 PR_COMMENT_SUGGESTED_CHANGES = "PR_COMMENT_SUGGESTED_CHANGES"
@@ -69,7 +69,7 @@ Your primary objective is to analyze PR Change Patches and suggest changes to th
 
 You will be provided with multiple inputs in below format:
 Filename: "Filename goes here"
-Diff Patch:
+Git Diff Patch:
 "Diff Patch goes here"
 File Content:
 "File Content goes here"
@@ -78,38 +78,14 @@ You have to provide output keeping below points in mind:
 1. You need to analyze the patches for 3 categories - "Possible Issues/Regressions", "General", "Error Handling".
 2. Please note suggestions that should not repeat and are not similar across categories. Also, if there are multiple suggestions on same lines of patch, kindly club the suggestion into one.
 3. Based on 3 categories given list down your suggestions adhering strictly to the following json format for your response:
-{
-    "possible_issues_or_regressions": [
-        {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_comment": "Suggestion comment goes here"
-        }
-    ],
-    "general": [
-        {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_comment": "Suggestion comment goes here"
-        }
-    ],
-    "error_handling": [
-        {
-            "filename": "Filename goes here",
-            "diff_patch": "Diff Patch goes here",
-            "suggestion_title": "Suggestion title goes here",
-            "suggestion_comment": "Suggestion comment goes here"
-        }
-    ]
-}
-
-Let's understand the placeholders of every suggestion (all 4 fields are mandatory for a suggestion):
-"Filename goes here" - The filename of the file where the changes are made, this should be same as provided in the input.
-"Diff Patch goes here" - The diff patch of the file, this should be same as provided in the input.
-"Suggestion title goes here" - It should contain relevant title for the suggestion.
-"Suggestion comment goes here" - It should contain the comment of the suggestion. The comment of the suggestion should be crystal clear and concise. It should be text and only text, "<br\\>" tag can be used for new line.
+[
+    {
+        "category": <category>,
+        "line_number": <line_number>,
+        "suggestion_title": <suggestion_title>,
+        "suggestion_description": <suggestion_description>,
+    }
+]
 
 Strict notes for you, Your response should be a valid json adhering to the above format.
 """
