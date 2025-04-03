@@ -1,38 +1,43 @@
 import json
-import logging
 import requests
-
 from src.constants import *
-from src.exceptions import *
+from src.exceptions import GitHubAPIException, InvalidGitHubConfigException
 from src.helpers import EnvironmentVariableHelper
 
-logger = logging.getLogger(__name__)
+
 class GitHubClient:
     def __init__(self):
         self.token = EnvironmentVariableHelper.get_github_auth_token()
-        if not self.token:
-            raise GitTokenMissingException("GitHub Token is required for REST APIs")
+        if self.token is None:
+            raise InvalidGitHubConfigException("GitHub Token is required for GitHub's REST APIs")
         
-        self.repositoryLink = EnvironmentVariableHelper.get_repo()
-        if not self.repositoryLink:
-            raise RepoMissingException("Repository is required for REST APIs")
+        self.repository_link = EnvironmentVariableHelper.get_repo()
+        if self.repository_link is None:
+            raise InvalidGitHubConfigException("Repository is required for GitHub's REST APIs")
         
-        self.owner, self.repo = self.repositoryLink.split("/")
+        self.owner, self.repo = self.repository_link.split("/")
+        if self.owner is None or self.repo is None:
+            raise InvalidGitHubConfigException("Error in parsing repository link, expected format: owner/repo")
+
+        self.pr_number = EnvironmentVariableHelper.get_pr_number()
+        if self.pr_number is None:
+            raise InvalidGitHubConfigException("PR number is required for GitHub's REST APIs")
+        
+        self.pr_event = EnvironmentVariableHelper.get_event()
+        if self.pr_event is None:
+            raise InvalidGitHubConfigException("PR event is required for GitHub's REST APIs")
 
     def get_pr_info(self):
         """
         get https://api.github.com/repos/{owner}/{repo}/pulls/{pr_number}
         :return:
-        """
-        pr_number = EnvironmentVariableHelper.get_pr_number()
-        if not pr_number:
-            raise MissingConfigException("PR number is required")        
+        """       
         headers = {
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
         }
 
-        pr_comments_url = PR_INFO_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+        pr_comments_url = PR_INFO_URL_TEMPLATE.format(self.owner, self.repo, self.pr_number)
 
         try:
             response = requests.get(pr_comments_url, headers=headers)
@@ -46,13 +51,14 @@ class GitHubClient:
         get https://api.github.com/repos/{owner}/{repo}/compare/{base}...{head}
         :return: 
         """
-        raw_event = EnvironmentVariableHelper.get_event()
-        if not raw_event:
-            raise MissingConfigException("Please provide PR detail info")
-        pr_event = json.loads(raw_event)
-        pr_request = pr_event["pull_request"]
-        base_sha = pr_request["base"]["sha"]
-        head_sha = pr_request["head"]["sha"]
+        try:
+            pr_event = json.loads(self.pr_event)
+            pr_request = pr_event["pull_request"]
+            base_sha = pr_request["base"]["sha"]
+            head_sha = pr_request["head"]["sha"]
+        except Exception as err:
+            raise GitHubAPIException(f"Error in parsing PR event: {err}")
+
         headers = {
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
@@ -73,14 +79,11 @@ class GitHubClient:
         :param comment:
         :return:
         """
-        pr_number = EnvironmentVariableHelper.get_pr_number()
-        if not pr_number:
-            raise MissingConfigException("PR number is required")
         headers = {
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
         }
-        pr_comment_url = PR_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+        pr_comment_url = PR_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, self.pr_number)
         data = {
             "body": comment
         }
@@ -97,11 +100,11 @@ class GitHubClient:
         :param contents_url:
         :return:
         """
+        headers = {
+            "Accept": "application/vnd.github.raw+json",
+            "authorization": f"Bearer {self.token}",
+        }
         try:
-            headers = {
-                "Accept": "application/vnd.github.raw+json",
-                "authorization": f"Bearer {self.token}",
-            }
             response = requests.get(contents_url, headers=headers)
             response.raise_for_status()
             return response.text
@@ -114,14 +117,11 @@ class GitHubClient:
         :param comment:
         :return:
         """
-        pr_number = EnvironmentVariableHelper.get_pr_number()
-        if not pr_number:
-            raise MissingConfigException("PR number is required")
         headers = {
             "Accept": "application/vnd.github+json",
             "authorization": f"Bearer {self.token}",
         }
-        pr_review_url = PR_REVIEW_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, pr_number)
+        pr_review_url = PR_REVIEW_COMMENT_URL_TEMPLATE.format(self.owner, self.repo, self.pr_number)
         try:
             response = requests.post(pr_review_url, headers=headers, data=json.dumps(comment))
             response.raise_for_status()
