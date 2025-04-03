@@ -1,11 +1,9 @@
 import json
-import logging
 from typing import Optional
-
 from openai import AzureOpenAI
-from src.constants import *
-from src.exceptions import InvalidOpenAIConfigException
+from src.exceptions import InvalidOpenAIConfigException, OpenAIAPIException
 from src.helpers import EnvironmentVariableHelper
+
 
 class AzureOpenAIClient:
     def __init__(self):
@@ -38,12 +36,15 @@ class AzureOpenAIClient:
         :return:
           review_content: str, the review response
         """
-        gpt_result = self.azure_openai_client.chat.completions.create(
+        try:
+            gpt_result = self.azure_openai_client.chat.completions.create(
             model=self.model,
             messages=messages
-        )
-        content = json.loads(gpt_result.to_json())
-        if "choices" not in content or not content["choices"]:
-            return None
-        review_message = content["choices"][0]["message"]["content"]
-        return str(review_message)
+            )
+            content = json.loads(gpt_result.to_json())
+            if "choices" not in content or not content["choices"]:
+                return None
+            review_message = content["choices"][0]["message"]["content"]
+            return str(review_message)
+        except Exception as err:
+            raise OpenAIAPIException(f"Error in request_gpt: {err}")
