@@ -23,6 +23,22 @@ MODEL_SYSTEM_ROLE = "system"
 MODEL_USER_ROLE = "user"
 MODEL_ASSIST_ROLE = "assistant"
 
+# Comment Structure
+SUGGESTIONS_SUMMARY_COMMENT_STRUCTURE = """
+#### :desktop_computer: PR Code Suggestions
+
+| Category                      | Suggestion(s)  | 
+| :---------------------------- | :------------- |
+| Possible Issues / Regressions | {0}            | 
+| General                       | {1}            |
+| Error Handling                | {2}            |
+"""
+
+SUGGESTION_STRUCTURE = "<details><summary>{0}</summary>{1}</details>"
+
+SUGGESTION_COMMENT_STRUCTURE = """{0}
+{1}"""
+
 # Prompt messages
 PR_SUMMARY_SYSTEM_PROMPT = """
 You are a GitHub Pull Review Assistant. Your task is to analyze provided pull request details - including the the pull request title, description, commit messages, and patches - and generate a comprehensive pull review summary.
