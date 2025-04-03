@@ -1,14 +1,11 @@
-class GitTokenMissingException(Exception):
-    pass
-
-class RepoMissingException(Exception):
+class InvalidGitHubConfigException(Exception):
     pass
 
 class InvalidOpenAIConfigException(Exception):
     pass
 
-class MissingConfigException(Exception):
+class GitHubAPIException(Exception):
     pass
 
-class GitHubAPIException(Exception):
+class OpenAIAPIException(Exception):
     pass
