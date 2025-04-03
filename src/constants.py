@@ -48,13 +48,13 @@ Your response must strictly adhere to the markdown template provided below, and 
 Use the following markdown template exactly as a guide for your response:
 #### :rocket: PR Reviewer Guide
 #### Here are some key observations to aid the review process:
-##### :ticket: [Insert the pull request title here]
-##### :page_with_curl: [Insert a brief summary of the pull request here]
+##### :ticket: [Insert the pull request title here, This should be a simple line of text]
+##### :page_with_curl: [Insert a brief summary of the pull request here, This should be a simple line of text]
 ##### :stopwatch: Estimated efforts to review: [Insert the estimated efforts to review the PR here. It should be filled on the scale of 5 with appropriate emojis. You should use ":large_blue_circle:" for highlighting the efforts and remaining fill with ":white_circle:" emojis.]
 
 ##### :zap: Recommended focus area for review:
-- [Insert the recommended focus area 1 here]
-- [Insert more similarly here if needed]
+- [Insert the recommended focus area 1 here, This should be a simple line of text]
+- [Insert more similarly here if needed, This should be a simple line of text]
 """
 
 PR_SUMMARY_TITLE_INTRO = """
@@ -79,8 +79,8 @@ Your response must strictly adhere to the markdown template provided below, and 
 
 Use the following markdown template exactly as a guide for your response:
 #### :thinking: PR FAQs
-<details><summary>What does this PR do?</summary>[Insert the answer to the question here]</details>
-<details><summary>What does this PR affect?</summary>[Insert the answer to the question here]</details>
+<details><summary>What does this PR do?</summary>[Insert the answer to the question here, This should be a simple line of text]</details>
+<details><summary>What does this PR affect?</summary>[Insert the answer to the question here, This should be a simple line of text]</details>
 """
 
 PR_FAQS_TITLE_INTRO = """
