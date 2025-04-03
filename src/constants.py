@@ -1,5 +1,3 @@
-OPENAI_API_VERSION = "2025-01-01-preview"
-
 # Environment Variable's Keys
 REPO = "REPO"
 PR_NUMBER = "PR_NUMBER"
