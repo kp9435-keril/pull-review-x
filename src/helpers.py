@@ -45,6 +45,10 @@ class EnvironmentVariableHelper:
         return EnvironmentVariableHelper.get_env_var(PR_SUMMARY, True)
     
     @staticmethod
+    def get_pr_faqs() -> bool:
+        return EnvironmentVariableHelper.get_env_var(PR_FAQS, True)
+    
+    @staticmethod
     def get_pr_suggest_changes() -> bool:
         return EnvironmentVariableHelper.get_env_var(PR_SUGGEST_CHANGES, True)
     

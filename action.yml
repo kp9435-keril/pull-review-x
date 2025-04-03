@@ -23,6 +23,9 @@ inputs:
   PR_SUMMARY:
     description: "Whether allow workflow to analyze PR and provide summary in comment."
     required: false
+  PR_FAQS:
+    description: "Whether allow workflow to analyze PR and provide FAQs in comment."
+    required: false
   PR_SUGGEST_CHANGES:
     description: "Whether allow workflow to analyze PR & suggest changes in comment, if required."
     required: false
@@ -81,6 +84,7 @@ runs:
           AZURE_OPENAI_API_VERSION: ${{ inputs.AZURE_OPENAI_API_VERSION }}
           AZURE_OPENAI_MODEL : ${{ inputs.AZURE_OPENAI_MODEL }}
           PR_SUMMARY: ${{ inputs.PR_SUMMARY }}
+          PR_FAQS: ${{ inputs.PR_FAQS }}
           PR_SUGGEST_CHANGES: ${{ inputs.PR_SUGGEST_CHANGES }}
           PR_COMMENT_SUGGESTED_CHANGES: ${{ inputs.PR_COMMENT_SUGGESTED_CHANGES }}
         run: |

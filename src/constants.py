@@ -9,6 +9,7 @@ AZURE_OPENAI_ENDPOINT = "AZURE_OPENAI_ENDPOINT"
 AZURE_OPENAI_API_VERSION = "AZURE_OPENAI_API_VERSION"
 AZURE_OPENAI_MODEL = "AZURE_OPENAI_MODEL"
 PR_SUMMARY = "PR_SUMMARY"
+PR_FAQS = "PR_FAQS"
 PR_SUGGEST_CHANGES = "PR_SUGGEST_CHANGES"
 PR_COMMENT_SUGGESTED_CHANGES = "PR_COMMENT_SUGGESTED_CHANGES"
 
@@ -70,6 +71,24 @@ Below are the list of commit messages in the PR for your reference:
 
 PR_SUMMARY_PATCHES_INTRO = """
 Below are the list of file changes in the PR for your reference:
+"""
+
+PR_FAQS_SYSTEM_PROMPT = """
+You are a GitHub Pull Review Assistant. Your task is to analyze the provided pull request details - including the the pull request title, description, file name, diff patch, and file content - and insert answers to the FAQs in the below markdown template.
+Your response must strictly adhere to the markdown template provided below, and all questions are required. Do not add any extra commentary or text outside of the markdown structure.
+
+Use the following markdown template exactly as a guide for your response:
+#### :thinking: PR FAQs
+<details><summary>What does this PR do?</summary>[Insert the answer to the question here]</details>
+<details><summary>What does this PR affect?</summary>[Insert the answer to the question here]</details>
+"""
+
+PR_FAQS_TITLE_INTRO = """
+Below is the PR Title for your reference:
+"""
+
+PR_FAQS_DESCRIPTION_INTRO = """
+Below is the PR Description for your reference:
 """
 
 PR_SUGGEST_CHANGES_SYSTEM_PROMPT = """

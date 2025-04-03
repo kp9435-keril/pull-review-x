@@ -38,6 +38,10 @@ class ReviewPR:
             get_pr_summary = EnvironmentVariableHelper.get_pr_summary()
             if get_pr_summary:
                 self.get_pr_summary(pr_title=pr_title, pr_description=pr_description, commit_messages=commit_messages, pr_diff_contents=pr_diff_contents)
+
+            get_pr_faqs = EnvironmentVariableHelper.get_pr_faqs()
+            if get_pr_faqs:
+                self.get_pr_faqs(pr_title=pr_title, pr_description=pr_description, pr_diff_contents=pr_diff_contents)
             
             get_pr_suggest_changes = EnvironmentVariableHelper.get_pr_suggest_changes()
             if get_pr_suggest_changes:
@@ -87,6 +91,43 @@ class ReviewPR:
         
         except Exception as err:
             logger.error("Unexpected Error in get_pr_summary: %s", err)
+            raise err
+        
+    def get_pr_faqs(self, pr_title: str, pr_description: str, pr_diff_contents: list[Any]) -> None:
+        try:
+            messages: list[dict[str, str]] = []
+
+            format_gpt_message(messages, [PR_FAQS_SYSTEM_PROMPT], role=MODEL_SYSTEM_ROLE)
+            format_gpt_message(messages, [PR_FAQS_TITLE_INTRO + pr_title], role=MODEL_USER_ROLE)
+            format_gpt_message(messages, [PR_FAQS_DESCRIPTION_INTRO + pr_description], role=MODEL_USER_ROLE)
+
+            for diff_item in pr_diff_contents:
+                diff_filename = diff_item["filename"]
+                diff_patch = diff_item["patch"]
+                file_content = self.github_client.get_file_contents(diff_item["contents_url"])
+                format_gpt_message(messages, [FILE_CHANGES_TEMPLATE.format(diff_filename, diff_patch, file_content)], role=MODEL_USER_ROLE)
+            
+            gpt_resp = self.azure_openai_client.request_gpt(messages)
+            if not gpt_resp:
+                return
+            
+            self.github_client.post_pr_comment(gpt_resp)
+            return
+        
+        except OpenAIAPIException as err:
+            logger.error("Error in get_pr_faqs, OpenAI API error: %s", err)
+            raise err
+        
+        except GitHubAPIException as err:
+            logger.error("Error in get_pr_faqs, GitHub API error: %s", err)
+            raise err
+        
+        except KeyError as err:
+            logger.error("Error in get_pr_faqs, Key error: %s", err)
+            raise err
+        
+        except Exception as err:
+            logger.error("Unexpected Error in get_pr_faqs: %s", err)
             raise err
     
     def get_pr_suggest_changes(self, pr_diff_contents: list[Any], pr_last_commit_id: str) -> None:
