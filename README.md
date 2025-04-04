@@ -1,6 +1,9 @@
 # PullReviewX
 A smart Github Action that utilizes Azure OpenAI API to review pull requests, identify  potential issues, and provide actionable feedback.
 
+## Working
+![working-diagram](assets/pullreviewx-working.png)
+
 ## Installation
 
 #### Setup Actions Workflow
