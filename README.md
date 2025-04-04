@@ -45,5 +45,6 @@ This is required in order to allow workflows to post comments.
 ## Usages
 
 1. `PR_SUMMARY`: Whether allow workflow to analyze PR and provide summary in comment. | default: `True`
-2. `PR_SUGGEST_CHANGES`: Whether allow workflow to analyze PR & suggest changes in comment, if required. | default: `True`
-3. `PR_COMMENT_SUGGESTED_CHANGES`: Whether allow workflow to drop review comment in the patch for the suggested changes. | default: `True` 
+2. `PR_FAQS`: Whether allow workflow to analyze PR and provide FAQs in comment. | default: `True`
+3. `PR_SUGGEST_CHANGES`: Whether allow workflow to analyze PR & suggest changes in comment, if required. | default: `True`
+4. `PR_COMMENT_SUGGESTED_CHANGES`: Whether allow workflow to drop review comment in the patch for the suggested changes. | default: `True` 
