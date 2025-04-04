@@ -1,10 +1,11 @@
 # PullReviewX
 A smart Github Action that utilizes Azure OpenAI API to review pull requests, identify  potential issues, and provide actionable feedback.
 
-## Working
+##:pushpin: Working
+
 ![working-diagram](assets/pullreviewx-working.png)
 
-## Installation
+##:wrench: Installation
 
 #### Setup Actions Workflow
 1. Go to `Actions` for you respository
@@ -27,6 +28,7 @@ jobs:
             AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
             AZURE_OPENAI_MODEL: <Your Deployed Model>
             PR_SUMMARY: True
+            PR_FAQS: True
             PR_SUGGEST_CHANGES: True
             PR_COMMENT_SUGGESTED_CHANGES: True
 ```
@@ -45,7 +47,7 @@ This is required in order to allow workflows to post comments.
 4. Scroll down to `Workflow Permissions` section
 5. Select `Read and write permissions`, and click on `Save`
 
-## Usages
+##:pencil: Usages
 
 1. `PR_SUMMARY`: Whether allow workflow to analyze PR and provide summary in comment. | default: `True`
 2. `PR_FAQS`: Whether allow workflow to analyze PR and provide FAQs in comment. | default: `True`
