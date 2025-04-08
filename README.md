@@ -26,7 +26,8 @@ jobs:
             GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             AZURE_OPENAI_APIKEY: ${{ secrets.AZURE_OPENAI_APIKEY }}
             AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
-            AZURE_OPENAI_MODEL: <Your Deployed Model>
+            AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
+            AZURE_OPENAI_MODEL: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
             PR_SUMMARY: True
             PR_FAQS: True
             PR_SUGGEST_CHANGES: True
