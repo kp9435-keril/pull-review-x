@@ -25,8 +25,8 @@ class EnvironmentVariableHelper:
         return EnvironmentVariableHelper.get_env_var(GITHUB_AUTH_TOKEN, None)
     
     @staticmethod
-    def get_azure_openai_apikey() -> str:
-        return EnvironmentVariableHelper.get_env_var(AZURE_OPENAI_APIKEY, None)
+    def get_azure_openai_api_key() -> str:
+        return EnvironmentVariableHelper.get_env_var(AZURE_OPENAI_API_KEY, None)
 
     @staticmethod
     def get_azure_openai_endpoint() -> str:

@@ -7,7 +7,7 @@ from src.helpers import EnvironmentVariableHelper
 
 class AzureOpenAIClient:
     def __init__(self):
-        self.api_key = EnvironmentVariableHelper.get_azure_openai_apikey()
+        self.api_key = EnvironmentVariableHelper.get_azure_openai_api_key()
         if self.api_key is None:
             raise InvalidOpenAIConfigException("Azure OpenAI API key is not set.")
         
