@@ -24,10 +24,10 @@ jobs:
         uses: kp9435-keril/pull-review-x@<your target version like v1.0.0>
         with:
             GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            AZURE_OPENAI_APIKEY: ${{ secrets.AZURE_OPENAI_APIKEY }}
+            AZURE_OPENAI_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
             AZURE_OPENAI_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
             AZURE_OPENAI_API_VERSION: ${{ secrets.AZURE_OPENAI_API_VERSION }}
-            AZURE_OPENAI_MODEL: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+            AZURE_OPENAI_MODEL: ${{ secrets.AZURE_OPENAI_MODEL }}
             PR_SUMMARY: True
             PR_FAQS: True
             PR_SUGGEST_CHANGES: True
@@ -38,7 +38,7 @@ jobs:
 1. Go to `Settings` for your repository
 2. Select `Secrets and variables` tab from the sidebar
 3. Once the expandable menu opens, Select `Actions`
-4. Select `New repository secret`, Add `AZURE_OPENAI_APIKEY` & `AZURE_OPENAI_ENDPOINT`
+4. Select `New repository secret`, Add `AZURE_OPENAI_API_KEY`, `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_VERSION` & `AZURE_OPENAI_MODEL`.
 
 #### Allow Write Permissions to Workflow
 This is required in order to allow workflows to post comments.
