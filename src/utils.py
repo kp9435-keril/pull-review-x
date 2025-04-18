@@ -66,9 +66,9 @@ def generate_changes_suggestion_comment(table_data: dict[str, list[dict[str, Any
     """
     try: 
         comment = SUGGESTIONS_SUMMARY_COMMENT_STRUCTURE.format(
-            generate_suggestions_cell_data(table_data.get("possible issues or regression", [])),
-            generate_suggestions_cell_data(table_data.get("general", [])),
-            generate_suggestions_cell_data(table_data.get("error handling", [])),
+            generate_suggestions_cell_data([] if not table_data.get("possible issues or regression") else table_data["possible issues or regression"]),
+            generate_suggestions_cell_data([] if not table_data.get("general") else table_data["general"]),
+            generate_suggestions_cell_data([] if not table_data.get("error handling") else table_data["error handling"]),
         )
         return comment
     except Exception as err:

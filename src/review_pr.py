@@ -29,8 +29,8 @@ class ReviewPR:
                 logger.warning("No pr commits, pr summary ignored")
                 return
 
-            pr_title = pr_info.get("title", "")
-            pr_description = pr_info.get("body", "")
+            pr_title = "No Title" if not pr_info.get("title") else pr_info["title"]
+            pr_description = "No Description" if not pr_info.get("body") else pr_info["body"]
             commit_messages = [commit["commit"]["message"] for commit in pr_diffs["commits"]]
             pr_diff_contents = [diff_item for diff_item in pr_diffs["files"] if diff_item["filename"].find("/tests/") == -1]
             pr_last_commit_id = pr_diffs["commits"][-1]["sha"]
